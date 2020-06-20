@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="/js/page/login.js"></script>
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row text-center">
+			<div class="card span6" style="float: center; margin: auto; margin-top: 50px;">
+				<form id="form-signin" class="form" method="post">
+
+					<div class="card-header bg-warning">
+						<h1 class="h3 mb-3 font-weight-normal">Howdy!</h1>
+					</div>
+
+					{% if error %}
+						<div class="alert alert-danger">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+					{% endif %}
+
+					{% if app.user %}
+						<div class="card-body bg-dark text-white">
+							You are logged in as<br/>
+							{{ app.user.username }}<br/>
+						</div>
+						<div class="card-footer">
+							<div class="body-text">
+								<button class="btn btn-md btn-warning" type="submit" href="/logout">Logout
+								</button>
+							</div>
+						</div>
+					{% else %}
+					<div class="card-body bg-dark text-white">
+						<label for="inputUsername">Username</label>
+						<input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
+						<a id="signup-link" href="#" style="display:none"><small>Username not found. New user?</small></a>
+						<br/>
+						<label for="inputPassword">Password</label>
+						<input type="password" name="password" id="inputPassword" class="form-control" required autofocus>
+
+						<input
+						type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+						<div class="checkbox mb-3">
+							<label>
+								<input type="checkbox" name="_remember_me">
+								Remember me
+							</label>
+						</div>
+					</div>
+					<div class="card-footer bg-dark text-white">
+						<div class="body-text">
+							<button id="signinButton" type="submit" class="btn btn-md btn-warning" disabled>
+								Sign in
+							</button>
+						</div>
+					<a href="{{ path('app_signup') }}" class="text-white"><small>Sign up as new user.</small></a>
+					</div>
+					{% endif %}
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

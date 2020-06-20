@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="card" style="float: center; margin: auto; margin-top: 50px;">
+    <div class="class-title">
+		<div class="card-header">
+			<h3>User Profile</h3>
+		</div>
+	</div>
+	<div class="card-body">
+        <div class="card-text">
+            <table class="table table-striped">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Name<th>
+                        <td>{{ profile.getFirstName() }} {{ profile.getLastName() }}</td>
+                    </tr>
+                    <tr>
+                        <th>Birthday<th>
+                        <td>{{ profile.getBirthday()|date('d-M-Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address<th>
+                        <td>{{ profile.getAddress() }}</td>
+                    </tr>
+                    <tr>
+                        <th>Postcode<th>
+                        <td>{{ profile.getPostcode() }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone<th>
+                        <td>{{ profile.getPhone() }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile<th>
+                        <td>{{ profile.getMobile() }}</td>
+                    </tr>
+                    <tr>
+                        <th>Notes<th>
+                        <td>{{ profile.getBio() }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a type="button" role="button" class="btn btn-md btn-primary" href="{{ path('_blogs') }}">Back</a>
+		<a type="button" role="button" class="btn btn-md btn-warning" href="{{ path('_user_profile_update') }}">Edit</a>
+    </div>
+</div>
+{% endblock %}

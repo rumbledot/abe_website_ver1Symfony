@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="row">
+		<h4>Abraham's Blog</h4>
+	</div>
+	<div class="row">
+		<h4><small>User 	: </small>{{ user.username }}</h4>
+	</div>
+	<div class="row">
+		<p><small>Member since : </small>{{ user.joined|date('d-M-Y') }} </p>
+		<p>&nbsp( <small>last login</small> {{ user.lastlogin|date('d-M-Y') }} )</p>
+	</div>
+
+    <div class="card rounded text-white bg-dark mb-3" style="margin:50px;">
+            <div class="card-header text-dark bg-warning mb-3">
+                <h4 class="card-title">{{ feat.title }}</h4>
+            <p class="card-subtitle"><small class="badge badge-sm badge-primary">{{ feat.statestr|blog_state }}</small></p>
+            </div>
+            <div class="card-body text-white bg-dark mb-3">
+                <h5 class="card-text">
+                    {{ feat.body }}
+                </h5>
+            </div>
+            <div class="card-footer text-white bg-dark mb-3">
+                <p class="card-subtitle"><small>{{ feat.updated|date('d-M-Y') }}</small></p>
+            </div>
+        </div>
+
+	{% for blog in blogs %}
+        {{ card(blog) }}
+	{% endfor %}
+{% endblock %}

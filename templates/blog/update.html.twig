@@ -1,0 +1,74 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<script type="text/javascript" src="{{ path('_util_js_form', {'id': 'blogUpdate'}) }}"></script>
+
+			<div class="card bg-dark text-white" style="float: center; margin: auto; margin-top: 50px;">
+			{{ form_start(form, {'action': path('_blog_update', { 'id': blog.id }), 'method': 'POST' }) }}
+				<div class="card-title bg-warning text-dark">
+					<div class="card-header">
+						<h4>Update blog
+							<span>#{{ blog.id }}</span>
+						</h4>
+						<h5>
+							<small>Last update on
+								{{ blog.updated|date("d/M/Y") }}</small>
+						</h5>
+						<br/>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						{{ form_label(form.state) }}
+						{{ form_widget(form.state) }}
+						{{ form_errors(form.state) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.title) }}
+						{{ form_widget(form.title) }}
+						{{ form_errors(form.title) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.body) }}
+						{{ form_widget(form.body) }}
+						{{ form_errors(form.body) }}
+					</div>
+				</div>
+				<div class="card-footer">
+					<a type="button" class="btn btn-secondary" href="{{ path('_blogs') }}">Back</a>
+					<button id="btn-save" type="button" class="btn btn-warning link-btn" data-toggle="modal" data-target="#confirmModal" disabled>Save</button>
+				</div>
+			{{ form_end(form) }}
+			</div>
+
+	<!-- confirmation modal -->
+	<div id="confirmModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content panel-default">
+				<div class="modal-header panel-heading">
+					<div class="pull-left">
+						<h4 id="confirmModalLabel" class="modal-title">Confirm changes</h4>
+					</div>
+					<div class="pull-right">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body">
+					Are you sure you want to save these changes?
+				</div>
+				<div class="modal-footer">
+					<div class="pull-left">
+						<button id="btn-confirm" type="submit" class="btn btn-primary link-btn" data-dismiss="modal">Confirm</button>
+					</div>
+					<div class="pull-right">
+						<a id="btn-cancel-modal" class="btn btn-link cancel-btn" data-dismiss="modal">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

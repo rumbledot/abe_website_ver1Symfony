@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="/js/page/signup.js"></script>
+{% endblock %}
+
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row text-center">
+			<div class="card bg-dark text-white span8 text-center" style="float: center; margin: auto; margin-top: 50px;">
+				{% if app.user %}
+					<div class="card-header bg-warning">
+						<h1 class="h3 mb-3 font-weight-normal">Hello, you..</h1>
+					</div>
+					<div class="card-body">
+						<h3>Please logout first and then try signing up again..</h3>
+					</div>
+					<div class="card-footer">
+						<div class="body-text">
+							<button class="btn btn-md btn-warning" href="{{ path('app_signout') }}">
+								Log out
+							</button>
+						</div>
+						<a href="{{ path('_blogs') }}">
+							<small>cancel</small>
+						</a>
+					</div>
+				{% else %}
+					{{ form_start(form, {'action': path('app_signup', {'username': username}), 'method': 'POST' }) }}
+					<div class="card-header bg-warning">
+						<h3>Hello..</h3>
+					</div>
+					{% if error %}
+						<div class="alert alert-danger">
+                            <p>{{ error }}</p>
+                        </div>
+					{% endif %}
+					<div class="card-body">
+						<div class="form-group">
+							{{ form_label(form.username) }}
+							{{ form_widget(form.username) }}
+							{{ form_errors(form.username) }}
+							<small class="form-text text-muted">Username 6-12 long no special chars</small>
+						</div>
+						<div class="form-group">
+							{{ form_label(form.password1) }}
+							{{ form_widget(form.password1) }}
+							{{ form_errors(form.password1) }}
+							<small class="form-text text-muted">Password 6-12 long, may contains ! .</small>
+						</div>
+						<div class="form-group">
+							{{ form_label(form.password2) }}
+							{{ form_widget(form.password2) }}
+							{{ form_errors(form.password2) }}
+						</div>
+						<div class="form-group">
+							{{ form_label(form.email) }}
+							{{ form_widget(form.email) }}
+							{{ form_errors(form.email) }}
+							<small class="form-text text-muted">I will not share your email to anyone. Fake it, I don't care.</small>
+						</div>
+					</div>
+					<div class="card-footer">
+						<a type="button" class="btn btn-secondary" href="{{ path('_blogs') }}">Back</a>
+						<button id="btn-save" type="submit" class="btn btn-warning" disabled>Create</button>
+					</div>
+					{{ form_end(form) }}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content justify-content-center ml-auto mr-0">
+				<div class="modal-header">
+					<h5 class="modal-title" id="alertTitle">Blog Sign-up</h5>
+				</div>
+				<p class="modal-body" id="alertBody"></p>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

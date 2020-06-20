@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <script type="text/javascript" src="{{ path('_util_js_form', {'id': 'profileNew', 'js': 1}) }}"></script>
+	
+	<div class="card" style="float: center; margin: auto; margin-top: 50px;">
+	{{ form_start(form, {'action': path('_user_profile_new'), 'method': 'POST' }) }}
+	<div class="class-title">
+		<div class="card-header">
+			<h1>New Profile</h1>
+		</div>
+	</div>
+		<div class="card-body">
+			<div class="form-group">
+				{{ form_label(form.first_name) }}
+				{{ form_widget(form.first_name) }}
+				{{ form_errors(form.first_name) }}
+			</div>
+            <div class="form-group">
+				{{ form_label(form.last_name) }}
+				{{ form_widget(form.last_name) }}
+				{{ form_errors(form.last_name) }}
+			</div>
+			<div class="form-group">
+				{{ form_label(form.address) }}
+				{{ form_widget(form.address) }}
+				{{ form_errors(form.address) }}
+			</div>
+            <div class="form-group">
+				{{ form_label(form.postcode) }}
+				{{ form_widget(form.postcode) }}
+				{{ form_errors(form.postcode) }}
+			</div>
+            <div class="form-group">
+				{{ form_label(form.phone) }}
+				{{ form_widget(form.phone) }}
+				{{ form_errors(form.phone) }}
+			</div>
+            <div class="form-group">
+				{{ form_label(form.mobile) }}
+				{{ form_widget(form.mobile) }}
+				{{ form_errors(form.mobile) }}
+			</div>
+            <div class="form-group">
+				{{ form_label(form.birthday) }}
+				{{ form_widget(form.birthday) }}
+				{{ form_errors(form.birthday) }}
+			</div>
+            <div class="form-group">
+				{{ form_label(form.bio) }}
+				{{ form_widget(form.bio) }}
+				{{ form_errors(form.bio) }}
+			</div>
+		</div>
+		<div class="card-footer">
+			<a type="button" class="btn btn-secondary" href="{{ path('_blogs') }}">Back</a>
+			<button id="btn-save" type="button" class="btn btn-primary link-btn" data-toggle="modal" data-target="#confirmModal" disabled>Save</button>
+		</div>
+	</div>
+	{{ form_end(form) }}
+
+	<!-- confirmation modal -->
+	<div id="confirmModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content panel-default">
+				<div class="modal-header panel-heading">
+					<div class="pull-left">
+						<h4 id="confirmModalLabel" class="modal-title">New profile</h4>
+					</div>
+					<div class="pull-right">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body">
+					Save your new profile?
+				</div>
+				<div class="modal-footer">
+					<div class="pull-left">
+						<button id="btn-confirm" type="submit" class="btn btn-primary link-btn" data-dismiss="modal">Confirm</button>
+					</div>
+					<div class="pull-right">
+						<a id="btn-cancel-modal" class="btn btn-link cancel-btn" data-dismiss="modal">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

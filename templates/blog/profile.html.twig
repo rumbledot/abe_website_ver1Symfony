@@ -1,0 +1,84 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="card rounded bg-dark text-white" style="margin:50px;">
+    <div class="card-header text-white bg-warning mb-3">
+        <h4 class="card-text text-black">
+            About me
+        </h4>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">
+            {{ profile.profile.name }}
+        </h4>
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-md-3">
+                <img src="{{ asset('/images/profile_pic.png') }}" style="margin-left:10px; width:80%; height:80%;">
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="card bg-secondary" style="margin-bottom:40px;">
+                    <div class="card-header bg-warning text-dark">
+                        <div class="card-text text-black">
+                            Bits and pieces
+                        </div>
+                    </div>
+                    <div class="card-body bg-secondary">
+                        <div class="card-text text-black">
+                            {{ profile.profile.bio }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-3">
+                <ul class="list-group bg-secondary" style="margin-right:40px; width:100%;">
+                    <li class="list-group-item bg-warning text-dark">Social Media</li>
+                    <li class="list-group-item bg-secondary"><a class="text-white" href="https://www.linkedin.com/in/bramkurnanto/">LinkedIn</a></li>
+                    <li class="list-group-item bg-secondary"><a class="text-white" href="https://twitter.com/RumbleDot">Twitter</a></li>
+                    <li class="list-group-item bg-secondary"><a class="text-white" href="https://github.com/rumbledot">GitHub</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card rounded" style="margin:50px;">
+    <div class="card-header text-white bg-primary mb-3">
+        <h4 class="card-title">
+            {{ featured.title }}
+        </h4>
+        <p class="card-subtitle">
+            <small>{{ featured.updated|date('d-M-Y') }}</small>
+        </p>
+    </div>
+    <div class="card-body">
+        <div class="card-text">
+            {{ featured.body }}
+        </div>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary btn-md" href="{{ path('_admin_blogs') }}">More..</a>
+    </div>
+</div>
+
+<div class="card rounded" style="margin:50px;">
+    <div class="card-header text-white bg-primary mb-3">
+        <h4 class="card-title">
+            Skills
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="card-text">
+            {{ featured.body }}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+$(document).ready( function() {
+
+    // confirmation modal
+    $('#btn-confirm').on('click', function(){
+        $("form[name='{{ id }}']").submit();
+    });
+
+    // enable submit button on form change
+    $(".form-control, .form-control-check").on('change keyup', function(){
+        $('#btn-save').prop('disabled', false);
+    });
+
+    {% if js == 1 %}
+        $(".js-datepicker").datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    {% endif %}
+
+});

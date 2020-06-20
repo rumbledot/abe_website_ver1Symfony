@@ -1,0 +1,6 @@
+
+###> symfony/framework-bundle ###
+/bundles/
+/fontawesome/
+/bootstrap/
+###< symfony/framework-bundle ###
