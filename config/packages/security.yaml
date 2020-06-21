@@ -1,0 +1,34 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm:      bcrypt
+
+    providers:
+        app_user_provider:
+            entity:
+                class:      App\Entity\User
+                property:   email
+    firewalls:
+        dev:
+            pattern:        ^/(_(profiler|wdt)|css|images|js)/
+            security:       false
+        main:
+            anonymous:      true
+            lazy: true
+            provider:       app_user_provider
+            guard:
+                authenticators:
+                            - App\Security\WebsiteAuthenticator
+            logout:
+                path:       app_signout
+                target:     _blogs
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    access_control:
+        - { path: ^/login$,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout$,    roles: IS_AUTHENTICATED_ANONYMOUSLY }

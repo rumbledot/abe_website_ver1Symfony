@@ -1,0 +1,27 @@
+site:
+    resource: ../../src/Security/WebsiteAuthenticator.php
+    type: annotation
+    prefix: /
+
+controllers:
+    resource: ../../src/Controller/
+    type: annotation
+
+admin:
+    resource: ../../src/Controller/AdminController.php
+    type: annotation
+    prefix: /admin
+
+blogs:
+    resource: ../../src/Controller/BlogController.php
+    type: annotation
+    prefix: /blog
+
+profiles:
+    resource: ../../src/Controller/ProfileController.php
+    type: annotation
+    prefix: /profile
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation

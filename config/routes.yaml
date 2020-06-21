@@ -1,0 +1,23 @@
+login:
+    path: /login
+    controller: App\Controller\SecurityController::signin
+
+logout:
+    path: /logout
+    controller: App\Controller\SecurityController::signin
+
+homepage:
+    path: /
+    controller: App\Controller\BlogController::indexAction
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController
+
+blog:
+    path: /blog
+    controller: App\Controller\BlogController
+
+profile:
+    path: /profile
+    controller: App\Controller\ProfileController
