@@ -112,7 +112,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/new", name="_blog_new")
-     * @Method({"POST"})
+     * @Method({"PUT"})
      * @Security("is_granted('ROLE_USER')")
      * @Template
      */
@@ -145,7 +145,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/update/{id}", name="_blog_update")
-     * @Method({"POST"})
+     * @Method({"PUT"})
      * @Security("is_granted('ROLE_USER')")
      * @Template
      */

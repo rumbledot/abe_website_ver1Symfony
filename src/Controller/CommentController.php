@@ -25,7 +25,7 @@ class CommentController extends AbstractController
      * @Route("comment/new/",
      *      name    ="_comment_get_list",
      *      options = {"expose" = true})
-     * @Method({"POST"})
+     * @Method({"GET"})
      */
     public function getListAction(UserService $us, Request $req)
     {
@@ -40,7 +40,7 @@ class CommentController extends AbstractController
      * @Route("comment/add/",
      *      name    ="_comment_add",
      *      options = {"expose" = true})
-     * @Method({"POST"})
+     * @Method({"PUT"})
      */
     public function addAction(UserService $us, Request $req)
     {
@@ -57,7 +57,7 @@ class CommentController extends AbstractController
      * @Route("comment/delete/",
      *      name    ="_comment_delete",
      *      options = {"expose" = true})
-     * @Method({"POST"})
+     * @Method({"DELETE"})
      */
     public function deleteAction(UserService $us, Request $req)
     {

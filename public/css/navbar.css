@@ -5,9 +5,9 @@
 }
 
 body {
-    padding-top: 70px;
+    padding-top: 90px;
 }
 
-.bg-gradient {
+.navbar-bg-gradient {
     background: linear-gradient(to bottom right, #33cccc 0%, #6699ff 50%, #33cccc 100%);
 }

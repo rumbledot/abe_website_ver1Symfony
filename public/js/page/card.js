@@ -59,7 +59,7 @@ $(document).ready( function() {
         
         $.ajax({
             url     : Routing.generate('_comment_get_list'),
-            method  : 'POST',
+            method  : 'GET',
             async: false,
             cache: false,
             timeout: 30000,
@@ -89,7 +89,7 @@ $(document).ready( function() {
     function commentAdd(id, text) {
         $.ajax({
             url     : Routing.generate('_comment_add'),
-            method  : 'POST',
+            method  : 'PUT',
             async: false,
             cache: false,
             timeout: 30000,
@@ -110,7 +110,7 @@ $(document).ready( function() {
     function commentDel(id, blogId) {
         $.ajax({
             url     : Routing.generate('_comment_delete'),
-            method  : 'POST',
+            method  : 'DELETE',
             async: false,
             cache: false,
             timeout: 30000,
