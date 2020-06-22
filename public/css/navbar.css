@@ -1,0 +1,13 @@
+.navbar {
+    width:  96%;
+    margin: 2%;
+    z-index: 1000;
+}
+
+body {
+    padding-top: 70px;
+}
+
+.bg-gradient {
+    background: linear-gradient(to bottom right, #33cccc 0%, #6699ff 50%, #33cccc 100%);
+}

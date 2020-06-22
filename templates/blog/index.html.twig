@@ -1,45 +1,38 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	<div class="row">
-		<h4>Blogs</h4>
-	</div>
-	{% if app.user %}
-	<div class="row">
-		<h4><small>Welcome, </small>{{ app.user.username }}</h4>
-	</div>
-	<div class="row">
-		<p><small>Last login : </small>{{ app.user.lastloginDate|date('d-M-Y') }}</p>
-	</div>
-	{% endif %}
+	<div class="card rounded shadow" style="margin:50px;">
+        <div class="card-body">
+            <h4 class="card-title">Blogs</h4>
+			{% if app.user %}
+			<h4><small>Welcome, </small>{{ app.user.username }}</h4>
+			<p><small>Last login : </small>{{ app.user.lastloginDate|date('d-M-Y') }}</p>
+			{% endif %}
+        </div>
+    </div>
 
-	<div class="row">
-	<div id="blogs" class="row mx-lg-4">
-		{% for blog in blogs %}
-		<div class="col-md-6 py-3 px-lg-5">
-			<div class="card bg-dark text-white" style="width: 18rem;">
-				<div class="card-header bg-info text-white">
-					<h4 class="card-title">{{ blog.title }} <span class="badge badge-sm badge-primary">{{ blog.statestr|blog_state }}</span></h4>
-					<p class="card-text"><small>by : {{ blog.writer }}</small></p>
-				</div>
-				<div class="card-body">
-					<h5 class="card-text">
-						{{ blog.body }}
-					</h5>
-				</div>
-				<div class="card-footer text-white">
-					<a type="button" role="button" class="btn btn-sm btn-secondary" href="{{ path('_blog_detail', {'id': blog.id }) }}">View</a>
-					{% if app.user %}
-						{% if blog.ownerID == app.user.id %}
-							<a type="button" role="button" class="btn btn-sm btn-warning" href="{{ path('_blog_update', {'id': blog.id }) }}">Edit</a>
-							<a type="button" role="button" class="btn btn-sm btn-danger" href="{{ path('_blog_delete', {'id': blog.id }) }}">Delete</a>
-						{% endif %}
-					{% endif %}
-					<h6 class="card-text mb-2 text-white text-muted"><small>Last update </small>{{ blog.updated|date("d-M-y") }}</h6>
+	{% for blog in blogs %}
+		<div class="card" style="margin:50px;">
+			<div class="card-header bg-info text-white">
+				<small class="card-text rounded-pill badge badge-sm badge-primary">{{ blog.statestr }}</small>
+				<h4 class="card-title">{{ blog.title }}</h4>
+				<p class="card-text"><small>by : {{ blog.writer }}</small></p>
+			</div>
+			<div class="card-body">
+				<div class="card-text">
+					{{ blog.body }}
 				</div>
 			</div>
+			<div class="card-footer text-white">
+				<a type="button" role="button" class="btn btn-sm btn-secondary" href="{{ path('_blog_detail', {'id': blog.id }) }}">View</a>
+				{% if app.user %}
+					{% if blog.ownerID == app.user.id %}
+						<a type="button" role="button" class="btn btn-sm btn-warning" href="{{ path('_blog_update', {'id': blog.id }) }}">Edit</a>
+						<a type="button" role="button" class="btn btn-sm btn-danger" href="{{ path('_blog_delete', {'id': blog.id }) }}">Delete</a>
+					{% endif %}
+				{% endif %}
+				<h6 class="card-text mb-2 text-white text-muted"><small>Last update </small>{{ blog.updated|date("d-M-y") }}</h6>
+			</div>
 		</div>
-		{% endfor %}
-	</div>
-	</div>
+	{% endfor %}
 {% endblock %}

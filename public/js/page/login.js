@@ -6,6 +6,7 @@ $(document).ready (() => {
     const signup        = document.getElementById('signup-link')
     
     inputUsername.addEventListener('change', () => {
+        
         $.ajax({
             url     : Routing.generate('app_check_user', { username : inputUsername.value }),
             method  : 'POST'

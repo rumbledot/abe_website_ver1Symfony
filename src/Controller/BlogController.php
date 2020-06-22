@@ -89,18 +89,24 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/view/{id}", name="_blog_detail")
+     * @Route("/view/{id}", 
+     *      name="_blog_detail",
+     *      options = {"expose" = true}))
      * @Method({"GET"})
      * @Template
      */
-    public function viewAction($id)
+    public function viewAction(UserService $us, $id)
     {
-        $blog   = $this->getDoctrine()->getRepository(Blog::class)->find($id);
-        $state  = $blog->getStateStr();
+        $blog       = $this->getDoctrine()->getRepository(Blog::class)->find($id);
+        $state      = $blog->getStateStr();
+        $comments   = $blog->getComments();
+        $user       = $us->getUser($blog->getOwner());
         
         return array(
-            'blog'  => $blog,
-            'state' => $state,
+            'user'      => $user,
+            'blog'      => $blog,
+            'state'     => $state,
+            'comments'  => $comments,
         );
     }
 

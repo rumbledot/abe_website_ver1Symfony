@@ -44,6 +44,7 @@ class blogNewType extends BaseType
             'attr'          => array(
                 'class'         => 'form-control',
                 'placeholder'   => 'write something about it',
+                'rows'          => '8',
             ),
         ));
     }

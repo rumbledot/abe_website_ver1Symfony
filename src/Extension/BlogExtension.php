@@ -40,18 +40,27 @@ class BlogExtension extends AbstractExtension
 
     public function cardFunc($blog) {
         $card   = '';
-        //$url    = $this->router->generateUrl('_get_comments', [ 'blog_ig' => $blog['id'] ]);
-        $url    = '#';
         
-        $card .= '<div class="card rounded" style="margin:50px;">';
-        $card .= '<div class="card-header text-white bg-primary mb-3">';
+        $card .= '<div class="card rounded shadow" style="margin:50px;">';
+        $card .= '<div class="card-header text-white bg-info mb-3">';
         $card .= '<h4 class="card-title">' . $blog['title'] . '</h4>';
-        $card .= '<p class="card-subtitle"><small class="badge badge-sm badge-primary">'. $blog['statestr'] . '</small></p></div>';
-        $card .= '<div class="card-body"><h5 class="card-text">' . $blog['body'] . '</h5></div>';
+        $card .= '<small class="card-text badge badge-sm badge-warning">'. $blog['statestr'] . '</small></div>';
+        
+        $card .= '<div class="card-body"><div class="card-text">' . $blog['body'] . '</div></div>';
+
+        $card .= '<ul id="commentList' . $blog['id'] . '" class="list-group" style="margin:10px;"></ul>';
+
         $card .= '<div class="card-footer">';
         $card .= '<small>' . $blog['updated']->format('d-M-Y') . '</small>';
-        $card .= '<a class="btn btn-warning btn-md float-right rounded-circle" style="margin:5px;" href="' . $url . '"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
-        $card .= '<a class="btn btn-info btn-md float-right rounded-circle" style="margin:5px;" href=""><i class="fa fa-list" aria-hidden="true"></i></a></div></div>';
+        $card .= '<button class="comment-add btn btn-warning text-dark btn-md float-right rounded-circle"';
+        $card .= 'style="margin:5px;" data-toggle="modal" data-target="#newComment"';
+        $card .= 'data-id="' . $blog['id'] . '">';
+        $card .= '<i class="fas fa-plus-circle"></i></button>';
+        $card .= '<button class="comment-list btn btn-info text-dark btn-md float-right rounded-circle"';
+        $card .= ' style="margin:5px;" data-show="hidden"';
+        $card .= 'data-id="' . $blog['id'] . '">';
+        $card .= '<i class="fa fa-list" aria-hidden="true"></i></button>';
+        $card .= '</div></div>';
 
         return $card;
     }

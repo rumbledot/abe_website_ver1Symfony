@@ -21,7 +21,7 @@ class Comment
      * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $blog_id;
+    private $blog;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -35,12 +35,12 @@ class Comment
 
     public function getBlogId(): ?Blog
     {
-        return $this->blog_id;
+        return $this->blog;
     }
 
-    public function setBlogId(?Blog $blog_id): self
+    public function setBlogId(?Blog $blog): self
     {
-        $this->blog_id = $blog_id;
+        $this->blog = $blog;
 
         return $this;
     }

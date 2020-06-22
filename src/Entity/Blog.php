@@ -22,7 +22,7 @@ class Blog
     const BLOG_STATE_MAP = array(
         "Draft"     =>  self::BLOG_STATE_DRAFT,
         "Private"   =>  self::BLOG_STATE_PRIVATE,
-        "Public"    =>  self::BLOG_STATE_PUBLIC, 
+        "Public"    =>  self::BLOG_STATE_PUBLIC,
     );
 
     /**
@@ -71,7 +71,7 @@ class Blog
     private $body;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="blog_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="blog", orphanRemoval=true)
      */
     private $comments;
     

@@ -94,6 +94,7 @@ class profileUpdateType extends BaseType
             'empty_data'    => '',
             'attr'          => array(
                 'class'         => 'form-control',
+                'rows'          => '8',
             ),
         ));
     }

@@ -1,33 +1,57 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	<div class="row">
-		<h4>Abraham's Blog</h4>
-	</div>
-	<div class="row">
-		<h4><small>User 	: </small>{{ user.username }}</h4>
-	</div>
-	<div class="row">
-		<p><small>Member since : </small>{{ user.joined|date('d-M-Y') }} </p>
-		<p>&nbsp( <small>last login</small> {{ user.lastlogin|date('d-M-Y') }} )</p>
-	</div>
+<script type="text/javascript" src="{{ asset('js/page/card.js') }}"></script>
 
-    <div class="card rounded text-white bg-dark mb-3" style="margin:50px;">
-            <div class="card-header text-dark bg-warning mb-3">
-                <h4 class="card-title">{{ feat.title }}</h4>
-            <p class="card-subtitle"><small class="badge badge-sm badge-primary">{{ feat.statestr|blog_state }}</small></p>
-            </div>
-            <div class="card-body text-white bg-dark mb-3">
-                <h5 class="card-text">
-                    {{ feat.body }}
-                </h5>
-            </div>
-            <div class="card-footer text-white bg-dark mb-3">
-                <p class="card-subtitle"><small>{{ feat.updated|date('d-M-Y') }}</small></p>
+	<div class="card rounded shadow" style="margin:50px;">
+        <div class="card-body">
+            <h4 class="card-title">Abraham Kurnanto</h4>
+            <div class="card-text">{{ user.username }}</div>
+            <p class="card-text">
+                <small>Member since : </small>{{ user.joined|date('d-M-Y') }}
+                <small>last login</small> {{ user.lastlogin|date('d-M-Y') }}
+            </p>
+        </div>
+    </div>
+    
+    <div class="card rounded text-white bg-dark mb-3 shadow" style="margin:50px;">
+        <div class="card-header text-dark bg-warning mb-3">
+            <h4 class="card-title">{{ feat.title }}</h4>
+        <p class="card-subtitle"><small class="badge badge-sm badge-primary">{{ feat.statestr|blog_state }}</small></p>
+        </div>
+        <div class="card-body text-white bg-dark mb-3">
+            <div class="card-text">
+                {{ feat.body }}
             </div>
         </div>
+        <div class="card-footer text-white bg-dark mb-3">
+            <p class="card-subtitle"><small>{{ feat.updated|date('d-M-Y') }}</small></p>
+        </div>
+    </div>
 
 	{% for blog in blogs %}
         {{ card(blog) }}
 	{% endfor %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="newComment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="newCommentModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark">
+        <div class="modal-header bg-warning">
+            <h5 class="modal-title" id="newCommentModal">New Comment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <textarea id="commentBox" class="form-control" row="2"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button id="cancelComment" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="submitComment" type="button" class="btn btn-warning">OK</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
 {% endblock %}

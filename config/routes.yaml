@@ -18,6 +18,10 @@ blog:
     path: /blog
     controller: App\Controller\BlogController
 
+comment:
+    path: /comment
+    controller: App\Controller\CommentController
+
 profile:
     path: /profile
     controller: App\Controller\ProfileController

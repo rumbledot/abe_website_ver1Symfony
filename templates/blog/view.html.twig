@@ -1,18 +1,71 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+<script type="text/javascript" src="{{ asset('js/page/card.js') }}"></script>
+    <div class="card rounded shadow" style="margin:50px;">
+        <div class="card-body">
+            <h4 class="card-title">{{ user.profile.name }}</h4>
+            <div class="card-text">{{ user.username }}</div>
+            <p class="card-text">
+                <small>Member since : </small>{{ user.joined|date('d-M-Y') }}
+                <small>last login</small> {{ user.lastlogin|date('d-M-Y') }}
+            </p>
+        </div>
+    </div>
     
-    <h1>{{ blog.title }}</h1>
-    <h5><span>#{{ blog.id }}</span> - <small>{{ blog.created|date("d/M/Y") }}</small></h5>
-    <br/>
-    <h3>{{ blog.body }}</h3>
-    <br/>
-    <p>Last update <small>{{blog.updated|date("d/M/Y") }}</small></p>
+    <div class="card bg-dark text-white" style="margin:50px;">
+        <div class="card-header bg-warning text-dark">
+            <small class="card-text rounded-pill badge badge-sm badge-primary">{{ blog.statestr }}</small>
+            <h4 class="card-title">{{ blog.title }}</h4>
+            <p class="card-text"><small>created : {{ blog.created|date("d/M/Y") }}</small></p>
+        </div>
 
-    <a href="{{ path('_blogs') }}">Back</a>
-    {% if app.user %}
-    <a href="{{ path('_blog_update', {'id': blog.id }) }}">Edit</a>
-    {% endif %}
+        <div class="card-body">
+            <div class="card-text">{{ blog.body }}</div>
+        </div>
+
+        <div class="card-footer">
+            <a class="btn btn-secondary btn-sm float-right" style="margin:5px;" href="{{ path('_blogs') }}">Back</a>
+            {% if app.user %}
+                {% if app.user.username == user.username %}
+                    <a class="btn btn-warning btn-sm float-right" style="margin:5px;" href="{{ path('_blog_update', {'id': blog.id }) }}">Edit</a>
+                {% endif %}
+            {% endif %}
+            <p class="card-text float-left">Last update <small>{{blog.updated|date("d/M/Y") }}</small></p>
+        </div>
+    </div>
+
+    <div class="card bg-dark text-white" style="margin:50px;">
+        <div class="card-header bg-info text-white">
+            <h4 class="card-title">Comments</h4>
+        </div>
+
+        <div class="card-body">
+            <ul id="viewCommentList" class="list-group bg-secondary" style="margin-right:40px; width:100%;">
+                {% if comments is defined %}
+                    {% if comments|length > 0 %}
+                        {% for com in comments %}
+                            <li class="list-group-item bg-secondary">
+                                {{ com.text }}
+                                {% if app.user %}
+                                    {% if app.user.username == user.username %}
+                                    <a class="comment-del btn btn-secondary text-warning rounded-circle btn-sm float-right"
+                                    data-id = "{{ com.id }}" data-blogId = "{{ blog.id }}" style="margin:5px;" >
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </a>
+                                    {% endif %}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item bg-secondary">No comments yet</li>
+                    {% endif %}
+                {% else %}
+                    <li class="list-group-item bg-secondary">No comments yet</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 
 
 {% endblock %}

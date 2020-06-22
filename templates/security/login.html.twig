@@ -20,6 +20,10 @@
 						<h1 class="h3 mb-3 font-weight-normal">Howdy!</h1>
 					</div>
 
+					<div class="card-text bg-warning">
+						<i class="fas fa-user-circle fa-7x"></i>
+					</div>
+
 					{% if error %}
 						<div class="alert alert-danger">
                             {{ error.messageKey|trans(error.messageData, 'security') }}

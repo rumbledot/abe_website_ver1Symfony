@@ -3,6 +3,7 @@ namespace App\Service;
 
 use App\Entity\User;
 use App\Entity\Blog;
+use App\Entity\Comment;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -168,13 +169,95 @@ class UserService
 
     public function getBlogData($blog) {
 
-        $blog_data['id']      = $blog->getId();
-        $blog_data['title']   = $blog->getTitle();
-        $blog_data['body']    = $blog->getBody();
-        $blog_data['created'] = $blog->getCreated();
-        $blog_data['updated'] = $blog->getUpdated();
-        $blog_data['statestr']= $blog->getStateStr();
+        $blog_data['id']        = $blog->getId();
+        $blog_data['title']     = $blog->getTitle();
+        $blog_data['body']      = $blog->getBody();
+        $blog_data['created']   = $blog->getCreated();
+        $blog_data['updated']   = $blog->getUpdated();
+        $blog_data['statestr']  = $blog->getStateStr();
 
         return $blog_data;
+    }
+
+    public function getComments($id) {
+        $data       = array();
+
+        $blog       = $this->em->getRepository(Blog::class)->findOneBy([
+                            'id' => $id,
+                        ]);
+
+        if ($blog) {
+            $cs         = $blog->getComments();
+            
+            if ($cs) {
+                
+                if (count($cs) > 0) {
+                    foreach ($cs as $c) {
+                        $data[$c->getId()] = $c->getText();
+                    }
+                } else {
+                    $data['error'] = "No comment yet";
+                }
+            } else {
+                $data['error'] = "No comment yet";
+            }
+        } else {
+            $data['error'] = "Blog not found";
+        }
+
+        return $data;
+    }
+
+    public function addComments($id, $text) {
+        $data       = array();
+        $blog       = $this->em->getRepository(Blog::class)->findOneBy([
+                            'id' => $id,
+                        ]);
+        $comment    = new Comment();
+        $textstr    = strval($text);
+
+        try {
+            $comment->setBlogId($blog);
+            $comment->setText($textstr);
+            $this->em->persist($comment);
+            $this->em->flush();
+            
+            $data['service_id'] = $id;
+            $data['service_text'] = $text;
+            $data['content'] = $textstr;
+            $data['status'] = 1;
+            return $data;
+            
+        } catch (Exception $e) {
+            $data['status'] = 0;
+            $data['error']  = $e;
+            return $data;
+        }
+    }
+
+    public function delComments($id) {
+        try {
+            $qb     = $this->em->createQueryBuilder();
+
+            $qb     ->select ('c')
+                    ->from('App:Comment', 'c')
+                    ->where('c.id = :com_id')
+                    ->setParameter('com_id', $id);
+
+            $comm   = $qb->getQuery()->getResult();
+
+            foreach ($comm as $c) {
+                $this->em->remove($c);
+                $this->em->flush();
+            }
+
+            return "OK";
+        } catch (Exception $e) {
+            return "FAILED";
+        }
+    }
+
+    public function getCommentData($c) {
+        $c_data['text']         = $c->getText();
     }
 }

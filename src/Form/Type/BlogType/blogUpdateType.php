@@ -45,6 +45,7 @@ class blogUpdateType extends BaseType
             'data'          => $options['blog']->getBody(),
             'attr'          => array(
                 'class'         => 'form-control',
+                'rows'          => '8',
             ),
         ));
     }

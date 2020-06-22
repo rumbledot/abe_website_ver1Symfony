@@ -1,8 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-
-<div class="card rounded bg-dark text-white" style="margin:50px;">
+<div class="card rounded bg-dark text-white shadow" style="margin:50px;">
     <div class="card-header text-white bg-warning mb-3">
         <h4 class="card-text text-black">
             {{ profile.profile.name }}
@@ -48,14 +47,12 @@
     </div>
 </div>
 
-<div class="card rounded" style="margin:50px;">
-    <div class="card-header text-white bg-primary mb-3">
+<div class="card rounded shadow" style="margin:50px;">
+    <div class="card-header text-white bg-info mb-3">
         <h4 class="card-title">
             {{ featured.title }}
         </h4>
-        <p class="card-subtitle">
-            <small>{{ featured.updated|date('d-M-Y') }}</small>
-        </p>
+        <small class="card-subtitle">{{ featured.updated|date('d-M-Y') }}</small>
     </div>
     <div class="card-body">
         <div class="card-text">
@@ -63,19 +60,19 @@
         </div>
     </div>
     <div class="card-footer">
-        <a class="btn btn-primary btn-md" href="{{ path('_admin_blogs') }}">More..</a>
+        <a class="btn btn-warning rounded-pill text-dark btn-md float-right" href="{{ path('_admin_blogs') }}"><i class="fa fa-eye" aria-hidden="true"></i> More..</a>
     </div>
 </div>
 
-<div class="card rounded" style="margin:50px;">
-    <div class="card-header text-white bg-primary mb-3">
+<div class="card rounded shadow" style="margin:50px;">
+    <div class="card-header text-white bg-info mb-3">
         <h4 class="card-title">
             Skills
         </h4>
     </div>
     <div class="card-body">
         <div class="card-text">
-            {{ featured.body }}
+            Skills
         </div>
     </div>
 </div>
