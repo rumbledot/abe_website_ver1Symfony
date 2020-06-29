@@ -1,0 +1,31 @@
+{% if type == 'footnote' %}
+    <div class="card bg-info">
+        <div class="card-body">
+            <small class="card-text">Footnote</small>
+            <p class="card-text">{% if status == true %}<i class="fas fa-check"></i>{% else %}<i class="fas fa-times"></i>{% endif %}&nbsp {{ text }}</p>
+        </div>
+    </div>
+{% elseif type == 'list' %}
+    {{dump(db)}}
+    <div class="card bg-info">
+        <div class="card-body bg-dark">
+            <small class="card-text">List of tasks</small>
+            <ul id="elementListOfItems" class="list-group bg-secondary" style="max-size:200px">
+                {% for list in lists %}
+                    <li class="card-text">
+                        {# {% if list.status == true %}
+                        <i class="fas fa-check"></i>
+                        {% else %}
+                        <i class="fas fa-times"></i>
+                        {% endif %}&nbsp  #}
+                        {{ list }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% elseif type == 'picture' %}
+{% else %}
+    <div class="form-group">
+        <h4>Incorrect type</h4>
+    </div>
+{% endif %}

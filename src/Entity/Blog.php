@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\User;
 
 use App\Repository\BlogsRepository;
+
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,13 +36,13 @@ class Blog
     /**
      * @ORM\ManyToOne(
      *      targetEntity="App\Entity\User",
-     *      inversedBy="id",
+     *      inversedBy="blogs",
      * )
      */
     private $owner;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\BlogMap", mappedBy="blog_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\BlogMap", mappedBy="blog")
      */
     private $contents;
 
@@ -74,6 +75,11 @@ class Blog
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="blog", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BlogMap::class, mappedBy="blog", orphanRemoval=true)
+     */
+    private $lists;
     
     public function __construct()
     {

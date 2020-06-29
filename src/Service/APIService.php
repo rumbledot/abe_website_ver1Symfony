@@ -4,7 +4,7 @@ namespace App\Service;
 use App\Entity\User;
 use App\Entity\Blog;
 
-use App\Service\CoreHTTPService;
+use App\Service\CURLService;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ class APIService {
     protected $em;
     protected $API;
 
-    public function __construct(EntityManagerInterface $entityManager, CoreHTTPService $API) {
+    public function __construct(EntityManagerInterface $entityManager, CURLService $API) {
         $this->em   = $entityManager;
         $this->API  = $API;
     }

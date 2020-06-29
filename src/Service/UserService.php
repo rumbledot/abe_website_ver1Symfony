@@ -11,8 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-class UserService
-{
+class UserService {
+    
     protected $em;
 
     public function __construct(EntityManagerInterface $entityManager)

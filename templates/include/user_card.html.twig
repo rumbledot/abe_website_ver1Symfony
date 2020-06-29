@@ -1,0 +1,9 @@
+<div class="card rounded shadow" style="margin:50px;">
+    <div class="card-body">
+        <h4 class="card-title">Blogs</h4>
+        {% if app.user %}
+        <h4><small>Welcome, </small>{{ app.user.username }}</h4>
+        <p><small>Last login : </small>{{ app.user.lastloginDate|date('d-M-Y') }}</p>
+        {% endif %}
+    </div>
+</div>

@@ -18,9 +18,10 @@ class BlogMap
     private $id;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="contents")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $blog_id;
+    private $blog;
 
     /**
      * @ORM\Column(type="integer")

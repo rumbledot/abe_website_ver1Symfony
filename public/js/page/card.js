@@ -103,7 +103,7 @@ $(document).ready( function() {
         }).done((res) => {
             $('#newComment').modal('toggle')
             listUL = document.getElementById('commentList' + id)
-        listUL.innerHTML = 'new comment added..'
+            listUL.innerHTML = 'new comment added..'
         })
     }
 

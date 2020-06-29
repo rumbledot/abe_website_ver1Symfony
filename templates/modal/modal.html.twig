@@ -1,0 +1,19 @@
+{% if type == 'footnote' %}
+    <div class="form-group">
+        <label for="footnoteBody">Foot note</label>
+        <textarea class="form-control" id="footnoteBody" rows="8" maxlength="1000" placeholder="Add a footnote to your blog."></textarea>
+    </div>
+{% elseif type == 'list' %}
+        <ul class="list-group bg-secondary" style="max-size:200px">
+            <li class="list-group-item bg-warning text-dark">Task list</li>
+            <li class="list-group-item bg-secondary"><input id="listItems" type="text" class="form-control float-left" maxlength="100" placeholder="Add new task.." style="width:90%">
+                <button id="elementListAddList" class="btn btn-info btn-sm rounded-circle float-right"><i class="fas fa-plus"></i></button>
+            </li>
+        </ul>
+        <ul id="elementListOfItems" class="list-group bg-secondary" style="max-size:200px"></ul>
+{% elseif type == 'picture' %}
+{% else %}
+    <div class="form-group">
+        <h4>Incorrect type</h4>
+    </div>
+{% endif %}

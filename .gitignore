@@ -9,6 +9,7 @@
 /public/scss
 /var/
 /vendor/
+website.zip
 *.txt
 .env
 ###< symfony/framework-bundle ###

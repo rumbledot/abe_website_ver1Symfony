@@ -1,0 +1,104 @@
+{% extends "base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/page/new_list.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+	{{ include('include/user_card.html.twig') }}
+
+	<div class="card bg-dark text-white" style="float: center; margin: 50px;">
+	
+		<div class="class-title bg-warning text-dark">
+			<div class="card-header">
+				<h1>New blog</h1>
+			</div>
+		</div>
+
+		<div class="card-body">
+			{# blog state #}
+			<div class="card-text">
+				<div class="dropdown">
+					<button class="btn btn-info dropdown-toggle" type="button" id="stateList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						State
+					</button>
+					<div class="dropdown-menu" aria-labelledby="stateList">
+						{% for state in states %}
+						<a class="dropdown-item {% if state == 8 %}active{% endif %}" href="#">{{ state|blog_state }}</a>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+
+			<div class="card-text">&nbsp</div>
+
+			{# blog title #}
+			<div class="form-group">
+				<label for="blogTitle">Title</label>
+				<input type="text" class="form-control" id="blogTitle" maxlength="100" placeholder="Give a title to your new blog..">
+			</div>
+
+			{# blog body #}
+			<div class="form-group">
+				<label for="blogBody">Description</label>
+				<textarea class="form-control" id="blogBody" rows="8" maxlength="4000" placeholder="Describe your new blog.."></textarea>
+			</div>
+			
+			<div id="elements" class="card-text">&nbsp</div>
+			
+			<div class="card-text">&nbsp</div>
+			<div class="card-text">
+				<div class="dropdown">
+					<button class="btn btn-info dropdown-toggle rounded-pill" type="button" id="elementList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-plus-circle" aria-hidden="true"></i> Add new element..
+					</button>
+					<div class="dropdown-menu" aria-labelledby="elementList">
+						<a class="dropdown-item" onclick="newFootnote()" id="el_footnote">Footnote</a>
+						<a class="dropdown-item" onclick="newList()" id="el_todolist">Todo checklist</a>
+						<a class="dropdown-item" onclick="" id="el_picture">Picture</a>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+	</div>
+
+	<!-- confirmation modal -->
+	<div id="newElementModal" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="newElementModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content panel-default bg-secondary text-white">
+				<div class="modal-header panel-heading bg-info">
+					<div class="pull-left">
+						<h4 id="confirmModalLabel" class="modal-title">Add element to your blog</h4>
+					</div>
+					<div class="pull-right">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<!-- alert -->
+				<div class="alert alert-warning" style="display:none" role="alert">
+					<strong>Full!</strong>&nbsp<small>Max tasks number reached. You could create another set.</small>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div id="newElementModalBody" class="modal-body">
+					
+				</div>
+				<div class="modal-footer">
+					<div class="pull-left">
+						<button id="btn-confirm" class="btn btn-warning link-btn">Add</button>
+					</div>
+					<div class="pull-right">
+						<a id="btn-cancel-modal" class="btn btn-link cancel-btn">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

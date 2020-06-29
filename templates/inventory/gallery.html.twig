@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/page/gallery.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+{{ title }}
+
+<div class="gallery">
+{% for image in images %}
+    <div class="img-container">
+        <img src="{{ asset(image) }}" alt="{{ image }}" data-original="{{ asset(image) }}"/>
+    </div>
+{% endfor %}
+</div>
+
+<div class="modal-gallery">
+<img src="" alt="" class="full-img" />
+</div>
+
+{% endblock %}

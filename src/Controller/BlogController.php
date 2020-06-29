@@ -19,7 +19,7 @@ use App\Form\Type\BlogType\blogNewType;
 
 use App\Service\UserService;
 use App\Service\APIService;
-use App\Services\CoreHTTPService;
+use App\Service\CURLService;
 
 class BlogController extends AbstractController
 {
@@ -144,6 +144,23 @@ class BlogController extends AbstractController
     }
 
     /**
+     * @Route("/newlist", name="_blog_new_list")
+     * @Method({"GET"})
+     * @Template
+     */
+    public function newListAction(Request $req)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $blog = new Blog();
+
+        return array (
+            'user'      => $user,
+            'states'    => $blog->getStateMap(),
+        );
+    }
+
+    /**
      * @Route("/update/{id}", name="_blog_update")
      * @Method({"PUT"})
      * @Security("is_granted('ROLE_USER')")
@@ -206,13 +223,23 @@ class BlogController extends AbstractController
      * @Route("/api", name="_blogs_api")
      * @Method({"GET"})
      */
-    public function testAction(CoreHTTPService $api)
+    public function testAPIAction(CURLService $api)
     {
-        $data = $api->post('/test', [
-            'title' => 'test',
-        ]);
-        dump($data);die;
+        $data   = $api->get('posts');
+        $posts  = $data['body'];
+
+        $page = '<html><body>from API: ';
+
+        foreach((Array)($posts) as $post) {
+            $page .= '<div class="card"><div class="card-header">'.$post['title'].'</div>';
+            $page .= '<div class="card-body">'.$post['body'].'</div>';
+            $page .= '</div>';
+        }
+        
+        $page .= '</body></html>';
+        
+        return new Response(
+            $page
+        );
     }
 }
-
-/* @Security("is_granted('ROLE_ADMIN') and is_granted('ROLE_FRIENDLY_USER')") */

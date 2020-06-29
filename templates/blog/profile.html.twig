@@ -71,8 +71,48 @@
         </h4>
     </div>
     <div class="card-body">
-        <div class="card-text">
-            Skills
+        <div class="card-columns">
+
+            <div class="card text-white bg-dark mb-3" style="max-width: 12rem;">
+                <div class="card-body">
+                    <small class="card-text">Software Development</small>
+                    <p class="card-text">
+                        <a class="text-white" href="abraham-kurnanto.com/PAAS">PAAS</a>
+                    </p>
+                </div>
+                <div class="card-footer"><small class="card-text">Platform as a service</small></div>
+            </div>
+
+            <div class="card text-white bg-dark mb-3" style="max-width: 12rem;">
+                <div class="card-body">
+                    <small class="card-text">Game Development</small>
+                    <p class="card-text">
+                    <a class="text-white" href="{{ path('_gallery', { 'type': 'game' }) }}">
+                    Hobby</a></p>
+                </div>
+            </div>
+
+            <div class="card text-white bg-secondary mb-3" style="max-width: 12rem;">
+                <div class="card-body">
+                    <small class="card-text">Interior</small>
+                    <p class="card-text">
+                    <a class="text-white" href="{{ path('_gallery', { 'type': 'render' }) }}">
+                    3D Render</a></p></p>
+                </div>
+                <div class="card-footer"><small class="card-text">Some past works</small></div>
+            </div>
+
+
+            <div class="card text-white bg-secondary mb-3" style="max-width: 12rem;">
+                <div class="card-body">
+                    <small class="card-text">Interior</small>
+                    <p class="card-text">
+                    <a class="text-white" href="{{ path('_gallery', { 'type': 'project' }) }}">
+                    Past Projects</a></p></p>
+                </div>
+                <div class="card-footer"><small class="card-text">Some past works</small></div>
+            </div>
+
         </div>
     </div>
 </div>

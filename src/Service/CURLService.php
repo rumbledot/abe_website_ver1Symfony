@@ -1,5 +1,5 @@
 <?php
-namespace App\Services;
+namespace App\Service;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -8,14 +8,14 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Constants\Mode;
 use AppBundle\Constants\WebConstant;
 
-class CoreHTTPService
-{
+class CURLService {
+    
     private $url;
     private $cookie;
     private $session;
 
     
-    public function __construct($url = 'https://6voho9b8s6.execute-api.us-east-1.amazonaws.com/dev', RequestStack $request)
+    public function __construct($url = 'https://oja2nsj195.execute-api.us-east-1.amazonaws.com/dev', RequestStack $request)
     {
         $this->url = $url;
         $this->cookie = $request->getCurrentRequest()
@@ -54,6 +54,41 @@ class CoreHTTPService
         $this->session = $session;
     }
 
+    public function simpleCURL($path) {
+        $data = array();
+        $url = 'https://oja2nsj195.execute-api.us-east-1.amazonaws.com/dev';
+
+        $options = array(
+            CURLOPT_HTTPHEADER      => array(
+                'accept: application/json',
+                'cache-control: no-cache',
+            ),
+            CURLOPT_RETURNTRANSFER  => 1,
+            CURLOPT_TIMEOUT         => 15,
+            CURLOPT_URL             => $url.'/'.$path,
+        );
+
+        $ch = curl_init();
+        curl_setopt_array($ch, $options);
+        
+        $body   = curl_exec($ch);
+        $err    = curl_errno($ch);
+
+        $temp = json_decode($body, true);
+
+        if (json_last_error() === JSON_ERROR_NONE)
+        {
+            $body = $temp;
+        }
+        $data['body']           = $body;
+        $data['http_code']      = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $data['error_code']      = $err;
+
+        curl_close($ch);
+
+        return $data;
+    }
+
 
     /**
      * GET
@@ -67,12 +102,12 @@ class CoreHTTPService
     public function get($path, $params = array(), $options = array())
     {
         // URL
+        $url = 'https://oja2nsj195.execute-api.us-east-1.amazonaws.com/dev';
 
         if (count($params) > 0)
         {
             $path = "$path?" . http_build_query($params);
         }
-
 
         // initialise
 
@@ -83,10 +118,10 @@ class CoreHTTPService
             ),
             CURLOPT_RETURNTRANSFER  => 1,
             CURLOPT_TIMEOUT         => 15,
-            CURLOPT_URL             => $this->url.'/'.$path,
+            CURLOPT_URL             => $url.'/'.$path,
         );
 
-        return ($this->curl(($defaults + $options)));
+        return ($this->curl($defaults + $options));
     }
 
 
@@ -101,6 +136,8 @@ class CoreHTTPService
      */
     public function post($path, $params = array(), $options = array())
     {
+        $url = 'https://oja2nsj195.execute-api.us-east-1.amazonaws.com/dev';
+
         // initialise
 
         $defaults = array(
@@ -114,7 +151,7 @@ class CoreHTTPService
             CURLOPT_POSTFIELDS      => http_build_query($params),
             CURLOPT_RETURNTRANSFER  => 1,
             CURLOPT_TIMEOUT         => 10,
-            CURLOPT_URL             => $this->url.'/'.$path,
+            CURLOPT_URL             => $url.'/'.$path,
         );
 
         return ($this->curl(($defaults + $options)));
@@ -151,37 +188,37 @@ private function curl($options = array())
 
     // cookies
 
-    preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $body, $matches);
+    // preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $body, $matches);
 
-    $cookies = array();
+    // $cookies = array();
 
-    foreach($matches[1] as $item)
-    {
-        parse_str($item, $cookie);
-        $cookies = array_merge($cookies, $cookie);
-    }
+    // foreach($matches[1] as $item)
+    // {
+    //     parse_str($item, $cookie);
+    //     $cookies = array_merge($cookies, $cookie);
+    // }
 
     // 2FA
 
-    $jsonStr = array();
-    $bodyArr = array();
+    // $jsonStr = array();
+    // $bodyArr = array();
 
-    preg_match('/\{.*?\}/', $body, $jsonStr);
+    // preg_match('/\{.*?\}/', $body, $jsonStr);
 
-    if (array_key_exists(0, $jsonStr))
-    {
-        $bodyArr = json_decode($jsonStr[0], true);
-    }
+    // if (array_key_exists(0, $jsonStr))
+    // {
+    //     $bodyArr = json_decode($jsonStr[0], true);
+    // }
 
 
     // curl body
 
-    if ($err)
-    {
-        $data['error']          = $err;
-    }
-    else
-    {
+    // if ($err)
+    // {
+    //     $data['error']          = $err;
+    // }
+    // else
+    // {
         // JSON decode
 
         $temp = json_decode($body, true);
@@ -193,26 +230,26 @@ private function curl($options = array())
 
         $data['body']           = $body;
         $data['http_code']      = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $data['cookies']        = $cookies;
+        // $data['cookies']        = $cookies;
 
-        if (is_array($bodyArr) && array_key_exists('sent', $bodyArr))
-        {
-            $data['twofa']      = $bodyArr['sent'];
-        }
+        // if (is_array($bodyArr) && array_key_exists('sent', $bodyArr))
+        // {
+        //     $data['twofa']      = $bodyArr['sent'];
+        // }
 
 
         // store http_code in session so we can force logout user for a non 200 code
         // store twofa for handling post log in verification
 
-        $this->session->set(WebConstant::SESSION_HTTP, $data['http_code']);
-        $this->session->set(WebConstant::SESSION_TWOFA, $data['twofa']);
+        // $this->session->set(WebConstant::SESSION_HTTP, $data['http_code']);
+        // $this->session->set(WebConstant::SESSION_TWOFA, $data['twofa']);
 
         // store route in session
 
-        $route = str_replace($this->url, '', $options[CURLOPT_URL]);
+        // $route = str_replace($this->url, '', $options[CURLOPT_URL]);
 
-        $this->session->set(WebConstant::SESSION_LAST_ROUTE, $route);
-    }
+        // $this->session->set(WebConstant::SESSION_LAST_ROUTE, $route);
+    // }
 
     curl_close($ch);
 

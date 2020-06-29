@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 class UtilJSController extends AbstractController
 {

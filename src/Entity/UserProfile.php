@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserProfileRepository;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,9 +15,6 @@ class UserProfile
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @ORM\OneToOne(
-     *      targetEntity="App\Entity\User", 
-     *      mappedBy="profile"
      * )
      */
     private $id;

@@ -25,3 +25,15 @@ comment:
 profile:
     path: /profile
     controller: App\Controller\ProfileController
+
+inventory:
+    path: /gallery
+    controller: App\Controller\InventoryController
+
+element:
+    path: /element
+    controller: App\Controller\ElementController
+
+util:
+    path: /util
+    controller: App\Controller\UtilJSController

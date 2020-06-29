@@ -80,10 +80,8 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToOne(
-     *      targetEntity="App\Entity\UserProfile", 
-     *      mappedBy="id"
+     *      targetEntity="App\Entity\UserProfile"
      * )
-     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
      */
     private $profile;
 

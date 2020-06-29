@@ -31,8 +31,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Services\CoreHTTPService:
+    App\Service\CURLService:
         arguments:
-            $url:           'https://6voho9b8s6.execute-api.us-east-1.amazonaws.com/dev'
+            $url:           'https://oja2nsj195.execute-api.us-east-1.amazonaws.com/dev'
         calls:
             - [setSession, ['@session']]

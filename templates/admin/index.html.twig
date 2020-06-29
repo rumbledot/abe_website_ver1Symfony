@@ -1,89 +1,80 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	<div class="row">
-		<h4>Admin Dashboard</h4>
-	</div>
-	<div class="row">
-		<h4><small>Welcome, </small>{{ app.user.username }}</h4>
-	</div>
-	<div class="row">
-		<p><small>Last login : </small>{{ app.user.lastloginDate|date('d-M-Y') }}</p>
-	</div>
+    {{ include('include/user_card.html.twig') }}
 
-	<div class="row">
-        <div id="blogs" class="row mx-lg-4">
-            <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Status</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Member since</th>
-                    <th scope="col">Last login</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for id, user in users %}
-                <tr class="expand-button accordion-toggle collapsed" id="accordion{{ id }}" data-toggle="collapse" data-parent="#accordion{{ id }}" href="#collapse{{ id }}">
-                    <th scope="row">{{ user.status }}</th>
-                    <td>{{ id }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.joined|date('d-M-Y') }}</td>
-                    <td>{{ user.lastlogin|date('d-M-Y') }}</td>
-                </tr>
-                <tr>
-                    <td><a class="btn btn-sm btn-primary" href="{{ path('_user_blogs', {'id': id}) }}">Blogs</a></td>
-                    <td><button class="btn btn-sm btn-primary">Status</button></td>
-                </tr>
+<div class="card rounded shadow" style="margin:50px;">
+    <table class="table table-striped">
+        <thead class="card-title">
+            <tr>
+                <th scope="col">Status</th>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Member since</th>
+                <th scope="col">Last login</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="card-body">
+        {% for id, user in users %}
+            <tr scope="row" class="card-text clickable" id="accordion{{ id }}" data-toggle="collapse" data-target="#collapse{{ id }}">
+                <td scope="col">{{ user.status }}</td>
+                <td scope="col">{{ id }}</td>
+                <td scope="col">{{ user.username }}</td>
+                <td scope="col">{{ user.email }}</td>
+                <td scope="col">{{ user.joined|date('d-M-Y') }}</td>
+                <td scope="col">{{ user.lastlogin|date('d-M-Y') }}</td>
+                <td scope="col"><a class="btn btn-sm btn-primary" href="{{ path('_user_blogs', {'id': id}) }}">Blogs</a></td>
+                <td scope="col"><button class="btn btn-sm btn-primary">Status</button></td>
+            </tr>
 
-                <tr class="hide-table-padding">
-                    <td colspan="3" class="hiddenRow">
-                        <div id="collapse{{ id }}" class="accordion-body collapse">
+            <tr scope="row">
+                <td colspan="3">
+                    <div id="collapse{{ id }}" class="collapse">
 
-                                <table class="table table-striped" style="position:relative; width:100%">
-                                    <tbody>
-                                        <tr scope="row">
-                                            <th>Name<th>
-                                            <td>{{ user.profile.name }}</td>
-                                        </tr>
-                                        <tr scope="row">
-                                            <th>Birthday<th>
-                                            <td>{{ user.profile.birthday|date('d-M-Y') }}</td>
-                                        </tr>
-                                        <tr scope="row">
-                                            <th>Address<th>
-                                            <td>{{ user.profile.address }}</td>
-                                        </tr>
-                                        <tr scope="row">
-                                            <th>Postcode<th>
-                                            <td>{{ user.profile.postcode }}</td>
-                                        </tr>
-                                        <tr scope="row">
-                                            <th>Phone<th>
-                                            <td>{{ user.profile.phone }}</td>
-                                        </tr>
-                                        <tr scope="row">
-                                            <th>Mobile<th>
-                                            <td>{{ user.profile.mobile }}</td>
-                                        </tr>
-                                        <tr scope="row">
-                                            <th>Notes<th>
-                                            <td>{{ user.profile.bio }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr scope="row">
+                                        <th>Name<th>
+                                        <td>{{ user.profile.name }}</td>
+                                    </tr>
+                                    <tr scope="row">
+                                        <th>Birthday<th>
+                                        <td>{{ user.profile.birthday|date('d-M-Y') }}</td>
+                                    </tr>
+                                    <tr scope="row">
+                                        <th>Address<th>
+                                        <td>{{ user.profile.address }}</td>
+                                    </tr>
+                                    <tr scope="row">
+                                        <th>Postcode<th>
+                                        <td>{{ user.profile.postcode }}</td>
+                                    </tr>
+                                    <tr scope="row">
+                                        <th>Phone<th>
+                                        <td>{{ user.profile.phone }}</td>
+                                    </tr>
+                                    <tr scope="row">
+                                        <th>Mobile<th>
+                                        <td>{{ user.profile.mobile }}</td>
+                                    </tr>
+                                    <tr scope="row">
+                                        <th>Notes<th>
+                                        <td>{{ user.profile.bio }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                        </div>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
 
-            {% endfor %}
-            </tbody>
-            </table>
-        </div>
-	</div>
-    
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
 {% endblock %}

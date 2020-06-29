@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Repository\ListMapRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+use App\Entity\ListItem;
 
 /**
  * @ORM\Entity(repositoryClass=ListMapRepository::class)
@@ -18,24 +21,25 @@ class ListMap
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(
+     *      targetEntity="App\Entity\ListText",
+     *      mappedBy="listmap"
+     * )
      */
-    private $step;
+    private $listItem;
+
+    public function __construct() {
+        $this->listItem = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getStep(): ?int
+    public function getLists()
     {
-        return $this->step;
+        return $this->listItem;
     }
 
-    public function setStep(int $step): self
-    {
-        $this->step = $step;
-
-        return $this;
-    }
 }

@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use App\Service\UserService;
 use App\Service\APIService;
-use App\Services\CoreHTTPService;
+use App\Services\CURLService;
 
 class CommentController extends AbstractController
 {
