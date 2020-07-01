@@ -40,7 +40,15 @@ class ListText
      *      inversedBy="listItem",
      * )
      */
-    private $listmap;
+    private $listMap;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->status    = false;
+    }
 
     public function getId(): ?int
     {

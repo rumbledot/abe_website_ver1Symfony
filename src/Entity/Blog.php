@@ -80,13 +80,18 @@ class Blog
      * @ORM\OneToMany(targetEntity=BlogMap::class, mappedBy="blog", orphanRemoval=true)
      */
     private $lists;
-    
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->state    = self::BLOG_STATE_DRAFT;
         $this->created  = new \DateTime();
         $this->updated  = new \DateTime();
         $this->comments = new ArrayCollection();
+        $this->contents = new ArrayCollection();
+        $this->lists = new ArrayCollection();
     }
 
     public function getId()
@@ -202,6 +207,74 @@ class Blog
             // set the owning side to null (unless already changed)
             if ($comment->getBlogId() === $this) {
                 $comment->setBlogId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function addContent(BlogMap $content): self
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents[] = $content;
+            $content->setBlog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContent(BlogMap $content): self
+    {
+        if ($this->contents->contains($content)) {
+            $this->contents->removeElement($content);
+            // set the owning side to null (unless already changed)
+            if ($content->getBlog() === $this) {
+                $content->setBlog(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BlogMap[]
+     */
+    public function getLists(): Collection
+    {
+        return $this->lists;
+    }
+
+    public function addList(BlogMap $list): self
+    {
+        if (!$this->lists->contains($list)) {
+            $this->lists[] = $list;
+            $list->setBlog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeList(BlogMap $list): self
+    {
+        if ($this->lists->contains($list)) {
+            $this->lists->removeElement($list);
+            // set the owning side to null (unless already changed)
+            if ($list->getBlog() === $this) {
+                $list->setBlog(null);
             }
         }
 

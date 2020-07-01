@@ -140,3 +140,44 @@ function newList() {
         popUp.modal('toggle')
     })
 }
+
+function newPicture() {
+    const popUp = $('#newElementModal')
+    popUp.modal('toggle')
+
+    const addBtn        = $('#btn-confirm')
+    const cancelBtn     = $('#btn-cancel-modal')
+
+    const elDiv     = $('#elements')
+    const popUpDiv  = $('#newElementModalBody')
+
+    var r = curl('_generate_modal', 'GET', { type: 'picture' })
+    if (r) {
+        var res = JSON.parse(r)
+        popUpDiv.html(res['body'])
+        
+        // confirmation modal
+        $('#pictureUploadBtn').on('click', function(){
+            console.log('click submite')
+            $("form[name='pictureNew']").submit();
+        })
+    }
+    
+    addBtn.on('click', function() {
+        if (checkout && (lists.length > 0)) {
+            var r = curl('_list_new', 'PUT', { data: lists })
+            if (r) {
+                var res = JSON.parse(r)
+                elDiv.html(res['body'])
+            }
+            popUp.modal('toggle')
+        } else {
+            alert('Task cannot be empty!')
+        }
+    })
+
+    cancelBtn.on('click', function() {
+        popUpDiv.html('')
+        popUp.modal('toggle')
+    })
+}

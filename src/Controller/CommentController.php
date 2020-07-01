@@ -22,7 +22,7 @@ use App\Services\CURLService;
 class CommentController extends AbstractController
 {
     /**
-     * @Route("comment/new/",
+     * @Route("/new",
      *      name    ="_comment_get_list",
      *      options = {"expose" = true})
      * @Method({"GET"})
@@ -37,7 +37,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("comment/add/",
+     * @Route("/add",
      *      name    ="_comment_add",
      *      options = {"expose" = true})
      * @Method({"PUT"})
@@ -54,7 +54,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("comment/delete/",
+     * @Route("/delete",
      *      name    ="_comment_delete",
      *      options = {"expose" = true})
      * @Method({"DELETE"})
@@ -65,7 +65,7 @@ class CommentController extends AbstractController
         $com_id     = intval($id);
 
         $status     = $us->delComments($com_id);
-            
+
         $res        = $status;
         
         return new JsonResponse($res);

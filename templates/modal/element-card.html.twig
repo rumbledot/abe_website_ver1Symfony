@@ -6,24 +6,32 @@
         </div>
     </div>
 {% elseif type == 'list' %}
-    {{dump(db)}}
     <div class="card bg-info">
         <div class="card-body bg-dark">
-            <small class="card-text">List of tasks</small>
-            <ul id="elementListOfItems" class="list-group bg-secondary" style="max-size:200px">
-                {% for list in lists %}
-                    <li class="card-text">
-                        {# {% if list.status == true %}
+            <ul id="elementListOfItems" class="list-group bg-info" style="max-size:200px">
+                <li><p class="card-text">List of tasks</p></li>
+                {% for k, list in lists %}
+                    <li class="list-group-item bg-secondary">
+                        <button class="btn btn-warning btn-sm rounded-circle" data-id="{{ k }}">
+                        {% if list.status == true %}
                         <i class="fas fa-check"></i>
                         {% else %}
                         <i class="fas fa-times"></i>
-                        {% endif %}&nbsp  #}
-                        {{ list }}</li>
+                        {% endif %}
+                        </button>
+                        &nbsp 
+                        {{ list.text }}
+                        </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 {% elseif type == 'picture' %}
+    <div class="card bg-info">
+        <div class="card-body">
+            <small class="card-text">Picture</small>
+        </div>
+    </div>
 {% else %}
     <div class="form-group">
         <h4>Incorrect type</h4>

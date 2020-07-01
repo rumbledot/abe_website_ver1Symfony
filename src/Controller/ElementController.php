@@ -6,6 +6,7 @@ use App\Entity\Blog;
 use App\Entity\TodoText;
 use App\Entity\ListMap;
 use App\Entity\ListText;
+use App\Entity\Picture;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -18,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\Json;
+
+use App\Form\Type\BlogType\pictureNewType;
 
 use App\Service\ElementService;
 
@@ -42,20 +45,58 @@ class ElementController extends AbstractController
         
         switch($type) {
             case 'footnote':
-                $response = $this->response(200, $this->renderView('modal/modal.html.twig', [ 'type' => 'footnote']));
+                $response = $this->response(200, $this->renderView('modal/modal.html.twig', 
+                [ 'type' => 'footnote']));
                 break;
             case 'list':
-                $response = $this->response(200, $this->renderView('modal/modal.html.twig', [ 'type' => 'list']));
+                $response = $this->response(200, $this->renderView('modal/modal.html.twig', 
+                [ 'type' => 'list']));
                 break;
             case 'picture':
-                $response = $this->response(200, $this->renderView('modal/modal.html.twig', [ 'type' => 'picture']));
+                $response = $this->pictureUploadAction($req);
                 break;
             default:
-                $response = $this->response(200, $this->renderView('modal/modal.html.twig', [ 'type' => 'error']));
-            break;
+                $response = $this->response(200, $this->renderView('modal/modal.html.twig', 
+                [ 'type' => 'error']));
+                break;
         }
 
         return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/picture/upload/", 
+     *      name="_picture_upload",
+     *      options = {"expose" = true}))
+     * @Method({"POST"})
+     */
+    public function pictureUploadAction(Request $req)
+    {
+        $pic = new Picture();
+
+        $form = $this->createForm(pictureNewType::class, $pic, array());
+
+        $response = $this->response(200, $this->renderView('modal/modal.html.twig', 
+        [ 'type' => 'picture', 'form' => $form->createView(), ]));
+
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($pic);
+            $entityManager->flush();
+
+            $response = $this->response(
+                200,
+                $this->renderView('modal/element-card.html.twig', [ 
+                    'type'      => 'picture',
+                    'status'    => 'ok', ])
+            );
+
+            return new JsonResponse($response);
+        }
+
+        return $response;
     }
 
     /**
@@ -130,35 +171,53 @@ class ElementController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         
         $data   = array();
+        $item   = array();
         $lists   = $req->get('data');
 
         $listMap = new ListMap();
         $em->persist($listMap);
         $em->flush();
-        // $listMapId = $listMap->getId();
+        $id = $listMap->getId();
+        
         $index = 0;
         foreach($lists as $list) {
             $listItem = new ListText();
             $listItem->setText($list);
             $listItem->setStep($index);
             $listItem->setListMap($listMap);
+            $listMap->addListItem($listItem);
             $em->persist($listItem);
             $em->flush();
             $index++;
         }
+        $em->persist($listMap);
+        $em->flush();
 
-        $listDB = '';
-        // $listsDB = $listMap->getLists();
+        // $listsDB = '';
+
+        $listMap = $this->getDoctrine()->getRepository(ListMap::class)->findOneBy([
+            'id' => $id,
+        ]);
+
+        $listsDB = $listMap->getLists();
+        foreach($listsDB as $list) {
+            $item                   = array();
+            $item['status']         = $list->getStatus();
+            $item['text']           = $list->getText();
+            $data[$list->getId()]   = $item;
+        }
         
         $response = $this->response(
                 200,
                 $this->renderView('modal/element-card.html.twig', [ 
                     'type'      => 'list',
-                    'lists'     => $lists,
-                    'db'        => $listsDB, ])
+                    'lists'     => $data, 
+                    'listBD'    => $listsDB, ])
         );
         
         return new JsonResponse($response);
     }
+
+    
 
 }

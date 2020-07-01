@@ -57,4 +57,16 @@ class Comment
         return $this;
     }
 
+    public function getBlog(): ?Blog
+    {
+        return $this->blog;
+    }
+
+    public function setBlog(?Blog $blog): self
+    {
+        $this->blog = $blog;
+
+        return $this;
+    }
+
 }

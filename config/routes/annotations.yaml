@@ -22,6 +22,26 @@ profiles:
     type: annotation
     prefix: /profile
 
+comments:
+    resource: ../../src/Controller/CommentController.php
+    type: annotation
+    prefix: /comment
+
+inventory:
+    resource: ../../src/Controller/InventoryController.php
+    type: annotation
+    prefix: /gallery
+
+element:
+    resource: ../../src/Controller/ElementController.php
+    type: annotation
+    prefix: /element
+
+util:
+    resource: ../../src/Controller/UtilJSController.php
+    type: annotation
+    prefix: /util
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -248,5 +249,45 @@ class User implements UserInterface
     public function getBlogs()
     {
         return $this->blogs;
+    }
+
+    public function getJoined(): ?\DateTimeInterface
+    {
+        return $this->joined;
+    }
+
+    public function setJoined(\DateTimeInterface $joined): self
+    {
+        $this->joined = $joined;
+
+        return $this;
+    }
+
+    public function getLastlogin(): ?\DateTimeInterface
+    {
+        return $this->lastlogin;
+    }
+
+    public function addBlog(Blog $blog): self
+    {
+        if (!$this->blogs->contains($blog)) {
+            $this->blogs[] = $blog;
+            $blog->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlog(Blog $blog): self
+    {
+        if ($this->blogs->contains($blog)) {
+            $this->blogs->removeElement($blog);
+            // set the owning side to null (unless already changed)
+            if ($blog->getOwner() === $this) {
+                $blog->setOwner(null);
+            }
+        }
+
+        return $this;
     }
 }

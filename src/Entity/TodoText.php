@@ -31,6 +31,7 @@ class TodoText
     {
         $this->status    = false;
     }
+
     public function getId(): ?int
     {
         return $this->id;
