@@ -41,12 +41,12 @@ class BlogExtension extends AbstractExtension
     public function cardFunc($blog) {
         $card   = '';
         
-        $card .= '<div class="card rounded shadow" style="margin:50px;">';
+        $card .= '<div class="card rounded shadow" style="margin:50px; max-height:70vh; height:70vh;">';
         $card .= '<div class="card-header text-white bg-info mb-3">';
         $card .= '<h4 class="card-title">' . $blog['title'] . '</h4>';
         $card .= '<small class="card-text badge badge-sm badge-warning">'. $blog['statestr'] . '</small></div>';
         
-        $card .= '<div class="card-body"><div class="card-text">' . $blog['body'] . '</div></div>';
+        $card .= '<div class="card-body overflow-auto"><div class="card-text">' . $blog['body'] . '</div></div>';
 
         $card .= '<ul id="commentList' . $blog['id'] . '" class="list-group" style="margin:10px;"></ul>';
 

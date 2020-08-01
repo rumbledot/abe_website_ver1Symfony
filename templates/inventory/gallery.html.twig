@@ -11,14 +11,23 @@
 {% endblock %}
 
 {% block body %}
-{{ title }}
 
-<div class="gallery">
-{% for image in images %}
-    <div class="img-container">
-        <img src="{{ asset(image) }}" alt="{{ image }}" data-original="{{ asset(image) }}"/>
+<div class="container" style="margin-bottom:60px;">
+    <div class="gallery">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-text"><span class="align-middle">{{ title }}</h3>
+            </div>
+            <div class="card-footer">
+                <a class="card-text btn btn-warning rounded-pill" href="{{ path("_blogs") }}">Home</a>
+            </div>
+        </div>
+        {% for image in images %}
+            <div class="img-container">
+                <img src="{{ asset(image) }}" alt="{{ image }}" data-original="{{ asset(image) }}"/>
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
 </div>
 
 <div class="modal-gallery">

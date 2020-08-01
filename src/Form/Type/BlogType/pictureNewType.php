@@ -1,10 +1,13 @@
 <?php
 namespace App\Form\Type\BlogType;
 
+use App\Entity\Picture;
+
 use Doctrine\DBAL\Types\TextType as TypesTextType;
 use Symfony\Component\Form\Extension\Core\Type\BaseType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 use Symfony\Component\Form\AbstractType;
@@ -15,12 +18,12 @@ class pictureNewType extends BaseType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('imageFile', VichImageType::class, array(
-            'required' => false,
-            'allow_delete' => true,
-            'download_uri' => true,
-            'image_uri' => true,
-            'asset_helper' => true,
+        $builder->add('imageFile', FileType::class, array(
+            'label'         => 'Upload an image(jpg/jpeg/png)',
+            'required'      => true,
+            'attr'          => array(
+                'accept'        => 'image/png, image/jpg, image/jpeg',
+            ),
         ));
 
         $builder->add('title', TextType::class, array(
@@ -53,7 +56,7 @@ class pictureNewType extends BaseType
     public function configureOptions(OptionsResolver $res)
     {
         $res->setDefaults(array(
-
+            'data-class' => Picture::class,
         ));
     }
 }

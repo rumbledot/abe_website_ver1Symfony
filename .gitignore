@@ -7,9 +7,11 @@
 /public/bundles/
 /public/bootstrap
 /public/scss
+/docs/
 /var/
 /vendor/
-website.zip
+/images/uploaded/
+*.zip
 *.txt
 .env
 ###< symfony/framework-bundle ###

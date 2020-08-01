@@ -20,6 +20,24 @@ function curl(url, method, data) {
     return res
 }
 
+function curl1(url, method, data) {
+    var res = $.ajax({
+                url     : Routing.generate(url),
+                method  : method,
+                async   : false,
+                cache   : false,
+                timeout : 30000,
+                processData: false,
+                data    : data,
+                error   : function() {
+                            return "Takes too long!"
+                            }
+        })
+    .responseText
+
+    return res
+}
+
 function renderList(lists) {
 
     var li = ''
@@ -151,30 +169,58 @@ function newPicture() {
     const elDiv     = $('#elements')
     const popUpDiv  = $('#newElementModalBody')
 
+    var checkout    = false
+
     var r = curl('_generate_modal', 'GET', { type: 'picture' })
     if (r) {
         var res = JSON.parse(r)
         popUpDiv.html(res['body'])
-        
-        // confirmation modal
-        $('#pictureUploadBtn').on('click', function(){
-            console.log('click submite')
-            $("form[name='pictureNew']").submit();
+
+        const imgPrev   = $('#previewImageFile')
+
+        const imgInput  = $('#inputImageFile')
+        const imgTitle  = $('#imageTitle')
+        const imgDesc   = $('#imageDesc')
+
+        var reader      = new FileReader()
+        var formData    = new FormData()
+        var blobPic
+
+        imgInput.change(function() {
+            if (imgInput[0].files && imgInput[0].files[0]) {
+                
+                reader.onload = function(e) {
+                    imgPrev.attr('src', e.target.result)
+                    blobPic  = e.target.result
+                    checkout = true
+                }
+                reader.readAsDataURL(imgInput[0].files[0])
+            }
+        })
+
+        addBtn.on('click', function() {
+            if (checkout && imgTitle.val() != '' && imgDesc.val() != '') {
+                formData.append('pic', blobPic)
+                formData.append('title', imgTitle.val())
+                formData.append('desc', imgDesc.val())
+                formData.append('filename', imgInput.val().slice(12))
+
+                var r = curl('_picture_new', 'POST', { data: 'fake', id: 'this is it!' })
+                if (r) {
+                    var res = JSON.parse(r)
+                    elDiv.html(res['body'])
+                }
+                // console.log(imgInput.val().slice(12))
+                // console.log(imgTitle.val())
+                // console.log(imgDesc.val())
+                // console.log(blobPic)
+                popUp.modal('toggle')
+            } else {
+                alert('Picture cannot be empty!')
+            }
         })
     }
-    
-    addBtn.on('click', function() {
-        if (checkout && (lists.length > 0)) {
-            var r = curl('_list_new', 'PUT', { data: lists })
-            if (r) {
-                var res = JSON.parse(r)
-                elDiv.html(res['body'])
-            }
-            popUp.modal('toggle')
-        } else {
-            alert('Task cannot be empty!')
-        }
-    })
+
 
     cancelBtn.on('click', function() {
         popUpDiv.html('')

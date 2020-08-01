@@ -1,9 +1,19 @@
 {% extends "base.html.twig" %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/page/card.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/blogs.css') }}" rel="stylesheet"/>
+{% endblock %}
 
 {% block body %}
-<script type="text/javascript" src="{{ asset('js/page/card.js') }}"></script>
+{# <div class="row">
 
-	<div class="card rounded shadow" style="margin:50px;">
+<div class="col-md-2 admin-card">
+    <div class="card rounded shadow">
         <div class="card-body">
             <h4 class="card-title">Abraham Kurnanto</h4>
             <div class="card-text">{{ user.username }}</div>
@@ -13,25 +23,42 @@
             </p>
         </div>
     </div>
-    
-    <div class="card rounded text-white bg-dark mb-3 shadow" style="margin:50px;">
-        <div class="card-header text-dark bg-warning mb-3">
-            <h4 class="card-title">{{ feat.title }}</h4>
-        <p class="card-subtitle"><small class="badge badge-sm badge-primary">{{ feat.statestr|blog_state }}</small></p>
-        </div>
-        <div class="card-body text-white bg-dark mb-3">
-            <div class="card-text">
-                {{ feat.body }}
+</div>
+
+<div class="col-md-10 col-sm-12"> #}
+
+<div class="container-fluid Flipped">
+    <div class="scrolling-wrapper row flex-row flex-nowrap pb-4">
+
+        <div class="col-12 Flipped">
+            <div class="card rounded text-white bg-dark mb-3 shadow card-block" style="margin:50px;">
+                <div class="card-header text-dark bg-warning mb-3">
+                    <h4 class="card-title">{{ feat.title }}</h4>
+                <p class="card-subtitle"><small class="badge badge-sm badge-primary">{{ feat.statestr|blog_state }}</small></p>
+                </div>
+                <div class="card-body text-white bg-dark mb-3 overflow-auto">
+                    <div class="card-text">
+                        {{ feat.body }}
+                    </div>
+                </div>
+                <div class="card-footer text-white bg-dark mb-3">
+                    <p class="card-subtitle"><small>{{ feat.updated|date('d-M-Y') }}</small></p>
+                </div>
             </div>
         </div>
-        <div class="card-footer text-white bg-dark mb-3">
-            <p class="card-subtitle"><small>{{ feat.updated|date('d-M-Y') }}</small></p>
-        </div>
-    </div>
 
-	{% for blog in blogs %}
-        {{ card(blog) }}
-	{% endfor %}
+        {% for blog in blogs %}
+            <div class="col-12 Flipped">
+                {{ card(blog) }}
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+{# 
+</div>
+
+</div> #}
 
     <!-- Modal -->
     <div class="modal fade" id="newComment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="newCommentModal" aria-hidden="true">

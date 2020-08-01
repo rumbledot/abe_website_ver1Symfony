@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/page/card.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/blogs.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid Flipped">
+    <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4">
+        {% for blog in blogs %}
+            <div class="col-8 Flipped">
+                {{ card(blog) }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="newComment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="newCommentModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark">
+        <div class="modal-header bg-warning">
+            <h5 class="modal-title" id="newCommentModal">New Comment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <textarea id="commentBox" class="form-control" row="2"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button id="cancelComment" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="submitComment" type="button" class="btn btn-warning">OK</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

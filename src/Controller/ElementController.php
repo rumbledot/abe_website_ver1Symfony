@@ -13,12 +13,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\Json;
+
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 use App\Form\Type\BlogType\pictureNewType;
 
@@ -53,50 +58,58 @@ class ElementController extends AbstractController
                 [ 'type' => 'list']));
                 break;
             case 'picture':
-                $response = $this->pictureUploadAction($req);
+                $response = $this->response(200, $this->renderView('modal/modal.html.twig', 
+                [ 'type' => 'picture1']));
                 break;
             default:
                 $response = $this->response(200, $this->renderView('modal/modal.html.twig', 
                 [ 'type' => 'error']));
                 break;
         }
-
+        
         return new JsonResponse($response);
     }
 
     /**
-     * @Route("/picture/upload/", 
-     *      name="_picture_upload",
+     * @Route("/picture/new/", 
+     *      name="_picture_new",
      *      options = {"expose" = true}))
      * @Method({"POST"})
      */
-    public function pictureUploadAction(Request $req)
+    public function pictureNewAction(Request $req, SluggerInterface $slugger, ElementService $es, ParameterBagInterface $param)
     {
-        $pic = new Picture();
+        $path   = $param->get('image_directory');
+        $pic    = new Picture();
 
-        $form = $this->createForm(pictureNewType::class, $pic, array());
+        $data       = $req->request->get('data');
+        $id         = $req->request->get('id');
+        $picFile    = $req->request->get('pic');
+        $picTitle   = $req->request->get('title');
+        $picDesc    = $req->request->get('desc');
+        $filename   = $req->request->get('filename');
 
-        $response = $this->response(200, $this->renderView('modal/modal.html.twig', 
-        [ 'type' => 'picture', 'form' => $form->createView(), ]));
+        
+        // $newFilename= $path.'\\'.$filename;
+        // file_put_contents('.\images\uploads', $picFile);
+        
+        // $pic->setImageFile($newFilename);
+        // $pic->setTitle($picTitle);
+        // $pic->setDescription($picDesc);
 
-        $form->handleRequest($req);
+        // $entityManager = $this->getDoctrine()->getManager();
+        // $entityManager->persist($pic);
+        // $entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($pic);
-            $entityManager->flush();
+        $picData['title']   = $picTitle;
+        $picData['desc']    = $picDesc;
+        $picData['filename']= $filename;
+        $picData['path']    = $id;
+        $picData['data']    = $data;
 
-            $response = $this->response(
-                200,
-                $this->renderView('modal/element-card.html.twig', [ 
-                    'type'      => 'picture',
-                    'status'    => 'ok', ])
-            );
+        $response = $this->response(200, $this->renderView('modal/element-card.html.twig', 
+        [ 'type' => 'picture', 'pic' => $picData, ]));
 
-            return new JsonResponse($response);
-        }
-
-        return $response;
+        return new JsonResponse($response);
     }
 
     /**

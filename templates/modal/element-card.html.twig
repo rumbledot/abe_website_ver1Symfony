@@ -30,6 +30,12 @@
     <div class="card bg-info">
         <div class="card-body">
             <small class="card-text">Picture</small>
+            <p>Title : {{ pic.title }}</p>
+            <p>Desc : {{ pic.desc }}</p>
+            <p>Filename : {{ pic.filename }}</p>
+            <p>Path : {{ pic.path }}</p>
+            <p>data : {{ pic.data }}</p>
+            {{ dump(pic.data) }}
         </div>
     </div>
 {% else %}

@@ -45,7 +45,7 @@ class profileUpdateType extends BaseType
         ));
 
         $builder->add('postcode', NumberType::class, array(
-            'label'         => 'Password',
+            'label'         => 'Postcode',
             'required'      => false,
             'data'          => $options['profile']->getPostcode(),
             'empty_data'    => '',

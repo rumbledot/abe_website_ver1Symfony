@@ -56,4 +56,29 @@ class AdminController extends AbstractController
             'user'  => $user,
         );
     }
+
+    /**
+     * @Route("/test", name="_admin_test")
+     * @Method({"GET"})
+     * @Template()
+     */
+    public function testAction(UserService $us) {
+        $admin_blog = $this->getDoctrine()->getRepository(Blog::class)->findOneBy([
+                            'id' => 15,
+                        ]);
+        $feat       = $us->getBlogData($admin_blog);
+
+        $blogs      = $us->getAdminBlogs();
+
+        $admin      = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+                            'username' => 'admin',
+                        ]);
+        $user       = $us->getUser($admin);
+
+        return array(
+            'feat'  => $feat,
+            'blogs' => $blogs,
+            'user'  => $user,
+        );
+    }
 }
