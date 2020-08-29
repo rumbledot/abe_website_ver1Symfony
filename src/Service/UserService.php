@@ -101,6 +101,66 @@ class UserService {
         return $data;
     }
 
+    public function getAdminBlog($offset) {
+
+        $data   = array();
+        $qb     = $this->em->createQueryBuilder();
+        $user   = $this->em->getRepository(User::class)->findOneBy(['id' => 9]);
+
+        $result = $this->em->getRepository(Blog::class)->findBy(
+            array(
+                'owner' => $user,
+            ),
+            array(
+                'id'    => 'DESC'
+            ),
+            1,
+            $offset
+        );
+
+        if (count($result) > 0) {
+            $data['blog'] = $this->getBlogData($result[0]);
+        }
+
+        $result = $this->em->getRepository(Blog::class)->findBy(
+            array(
+                'owner' => $user,
+            ),
+            array(
+                'id'    => 'DESC'
+            ),
+            1,
+            $offset + 1
+        );
+
+        if (count($result) > 0) {
+            $data['next'] = $offset + 1;
+        } else {
+            $data['next'] = -1;
+        }
+
+        if ($offset > 0) {
+            $result = $this->em->getRepository(Blog::class)->findBy(
+                array(
+                    'owner' => $user,
+                ),
+                array(
+                    'id'    => 'DESC'
+                ),
+                1,
+                $offset - 1
+            );
+
+            if (count($result) > 0) {
+                $data['prev'] = $offset - 1;
+            }
+        } else {
+            $data['prev'] = -1;
+        }
+
+        return $data;
+    }
+
     public function getUserBlogs($user) {
 
         $data   = array();

@@ -12,8 +12,10 @@
 
 {% block body %}
 	<div class="container-fluid">
+		<div class="row justify-content-center">
+		<div class="col-lg-4 col-md-6 col-sm-10 col-xs-10">
 
-		<div class="card" style="float: center; margin: auto; width:33%;">
+		<div class="card mt-5">
 			<form id="form-signin" class="form" method="post">
 
 				<div class="card-header bg-warning">
@@ -65,16 +67,18 @@
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 				</div>
 				<div class="card-footer bg-dark text-white text-center">
-					<div class="body-text">
-						<button id="signinButton" type="submit" class="btn btn-md btn-warning" disabled>
+					<div class="card-text mb-5">
+						<button id="signinButton" type="submit" class="btn btn-md btn-warning btn-block" disabled>
 							Sign in
 						</button>
 					</div>
-				<a href="{{ path('app_signup') }}" class="text-white"><small>Sign up as new user.</small></a>
+				{# <a href="{{ path('app_signup') }}" class="text-white"><small>Sign up as new user.</small></a> #}
 				</div>
 				{% endif %}
 			</form>
 		</div>
-		
+
+	</div>
+	</div>
 	</div>
 {% endblock %}

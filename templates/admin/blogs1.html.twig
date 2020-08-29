@@ -1,0 +1,93 @@
+{% extends "base.html.twig" %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/page/card.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/blogs.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+
+    <div class="col-md-8 col-sm-8">
+
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h3>{{ blog.title }}</h3>
+            </div>
+            <div class="card-body overflow-auto">
+                <div class="row">
+                    <div class="col-md-1 col-sm-1">
+                        <div class="card-text">
+                            {% if prev >= 0 %}
+                                <a class="btn btn-warning rounded-circle float-left" href="{{ path('_admin_blog1', { offset: prev }) }}">
+                                    <i class="fas fa-chevron-circle-left"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-md-10 col-sm-8">
+                        <div class="card-text float-center">
+                            {{ blog.body }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-1 col-sm-1">
+                        <div class="card-text">
+                            {% if next >= 0 %}
+                                <a class="btn btn-warning rounded-circle float-right" href="{{ path('_admin_blog1', { offset: next }) }}">
+                                    <i class="fas fa-chevron-circle-right"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <small>{{ blog['updated']|date('d-M-Y') }}</small>
+                <button class="comment-add btn btn-warning text-dark btn-md float-right rounded-circle" style="margin:5px;" data-toggle="modal" data-target="#newComment" data-id="{{ blog['id'] }}">
+                    <i class="fas fa-plus-circle"></i>
+                </button>
+                <button class="comment-list btn btn-info text-dark btn-md float-right rounded-circle" style="margin:5px;" data-show="hidden" data-id="{{ blog['id'] }}">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+{# 
+</div>
+
+</div> #}
+
+    <!-- Modal -->
+    <div class="modal fade" id="newComment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="newCommentModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark">
+        <div class="modal-header bg-warning">
+            <h5 class="modal-title" id="newCommentModal">New Comment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <textarea id="commentBox" class="form-control" row="2"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button id="cancelComment" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="submitComment" type="button" class="btn btn-warning">OK</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

@@ -58,6 +58,21 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/blogs1/{offset}", name="_admin_blog1")
+     * @Method({"GET"})
+     * @Template()
+     */
+    public function blogs1Action(UserService $us, $offset) {
+        $data      = $us->getAdminBlog($offset);
+
+        return array(
+            'blog'  => $data['blog'],
+            'next'  => $data['next'],
+            'prev'  => $data['prev'],
+        );
+    }
+
+    /**
      * @Route("/test", name="_admin_test")
      * @Method({"GET"})
      * @Template()
