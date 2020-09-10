@@ -48,7 +48,7 @@ composer require annotations
                                                         ...
                                                         });
             options={"expose":true}             => expose this route, so ajax can access it)
-```
+    ```
 4. twig template + form library
 composer require twig
 composer require form
