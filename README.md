@@ -33,6 +33,7 @@ composer require annotations
 
     - example
     Symfony annotations route
+    ```
     @Route("/page/{value}",                     => http url
             default={"value"="something"},      => give  a default value to route var
             requirement={"value"="alt1|alt2"}   => limits value to alt1 / alt2
@@ -47,7 +48,7 @@ composer require annotations
                                                         ...
                                                         });
             options={"expose":true}             => expose this route, so ajax can access it)
-
+```
 4. twig template + form library
 composer require twig
 composer require form
