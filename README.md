@@ -20,16 +20,16 @@ Postman.
 
 # steps and libraries
 1. generate the project
-composer create-project symfony/skeleton website
+'composer create-project symfony/skeleton website'
 
 2. managing assets like css, js in <script> <style>
-composer require symfony/asset
+'composer require symfony/asset'
 
 3. route management
 composer require annotations
     - js routing
-    composer require friendsofsymfony/jsrouting-bundle'
-    php bin/console assets:install --symlink public'
+    'composer require friendsofsymfony/jsrouting-bundle'
+    'php bin/console assets:install --symlink public'
 
     - example
     Symfony annotations route
@@ -50,40 +50,40 @@ composer require annotations
             options={"expose":true}             => expose this route, so ajax can access it)
     ```
 4. twig template + form library
-composer require twig
-composer require form
+'composer require twig'
+'composer require form'
 
 5. Doctrin ORM
     - composer require doctrine maker
-    - automatically give you
-        composer require symfony/maker-bundle --dev
-        composer require symfony/orm-pack
+        automatically give you :
+        - composer require symfony/maker-bundle --dev
+        - composer require symfony/orm-pack
     - setup a database
         edit database username, password, specification(location, type of database used) in .env file
     - this command will connect to database and create a new database for us
-        php bin/console doctrine:database:create
+        'php bin/console doctrine:database:create'
     - will prompt us to create an Entity class and it's list of column and create a table in database that reflects it
-        php bin/console make:entity Blog
+        'php bin/console make:entity Blog'
     - run these command after updating entity class
-    - these command will track all and made the changes to database
-        php bin/console doctrine:migrations:diff
-        php bin/console doctrine:migrations:migrate
+        these command will track all and made the changes to database
+        'php bin/console doctrine:migrations:diff'
+        'php bin/console doctrine:migrations:migrate'
     - we can do query from terminal
-        php bin/console doctrine:query:sql 'SELECT * FROM blog'
+        'php bin/console doctrine:query:sql 'SELECT * FROM blog''
 
     - authentication library
-        composer require security
-        php bin/console make:auth
-        php bin/console make:user
+        'composer require security'
+        'php bin/console make:auth'
+        'php bin/console make:user'
 
 6. Creating fixtures
     - this is a sanity check tools that help us checks things
-        composer require --dev doctrine/doctrine-fixtures-bundle
-        php bin/console make:fix
+        'composer require --dev doctrine/doctrine-fixtures-bundle'
+        'php bin/console make:fix'
     - run a Fixture
-        php bin/console doctrine:fixtures:load
+        'php bin/console doctrine:fixtures:load'
     - helper bundles
-        composer require sensio/generator-bundle
+        'composer require sensio/generator-bundle'
 
 7. dump() with proper styling for Symfony 5
-composer require symfony/debug-bundle
+'composer require symfony/debug-bundle'
