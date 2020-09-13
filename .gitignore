@@ -4,8 +4,9 @@
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
+/public/bundles
 /public/bootstrap
+/public/js/bootstrap
 /public/scss
 /docs/
 /var/
