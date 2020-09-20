@@ -1,56 +1,6 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<div class="row mt-5 mb-5">
-    <div class="col-sm-12 col-md-12 mt-3">
-        <div class="card rounded bg-dark text-white shadow">
-            <div class="card-header text-white bg-warning mb-3">
-                <h4 class="card-text text-black">
-                    {{ profile.profile.name }}
-                </h4>
-            </div>
-            <div class="card-body">
-                <h4 class="card-title">
-                    About me
-                </h4>
-            </div>
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-12 col-lg-3 text-center">
-                        <img src="{{ asset('images/profile_pic.png') }}" style="margin:10%; width:80%;">
-                    </div>
-
-                    <div class="col-12 col-lg-6" style="margin-bottom:10%;">
-                        <div class="card bg-secondary">
-                            <div class="card-header bg-warning text-dark">
-                                <div class="card-text text-black">
-                                    Bits and pieces
-                                </div>
-                            </div>
-                            <div class="card-body bg-secondary">
-                                <div class="card-text text-black">
-                                    {{ profile.profile.bio }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-lg-3" style="margin-bottom:10%;">
-                        <ul class="list-group bg-secondary" style="margin-right:40px; width:100%;">
-                            <li class="list-group-item bg-warning text-dark">Social Media</li>
-                            <li class="list-group-item bg-secondary"><a class="text-white" href="https://www.linkedin.com/in/bramkurnanto/">LinkedIn</a></li>
-                            <li class="list-group-item bg-secondary"><a class="text-white" href="https://twitter.com/RumbleDot">Twitter</a></li>
-                            <li class="list-group-item bg-secondary"><a class="text-white" href="https://github.com/rumbledot">GitHub</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="row mt-3 mb-3">
 
     <div class="col-sm-12 col-md-8 mt-5 mb-5">

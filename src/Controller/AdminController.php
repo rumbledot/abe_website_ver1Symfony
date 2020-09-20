@@ -49,7 +49,7 @@ class AdminController extends AbstractController
                             'username' => 'admin',
                         ]);
         $user       = $us->getUser($admin);
-
+dump($blogs);
         return array(
             'feat'  => $feat,
             'blogs' => $blogs,

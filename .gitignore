@@ -7,6 +7,7 @@
 /public/bundles
 /public/bootstrap
 /public/js/bootstrap
+/public/js/pixijs
 /public/css/bootstrap
 /public/scss
 /docs/
@@ -15,5 +16,6 @@
 /images/uploaded/
 *.zip
 *.txt
+*.bu
 .env
 ###< symfony/framework-bundle ###

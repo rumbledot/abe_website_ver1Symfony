@@ -1,56 +1,38 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark navbar-bg-gradient mb-3 rounded shadow">
-    <div class="container">
-        <a href="/" class="navbar-brand">kita.<small>&nbsp(dev version)</small></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-expand-lg border-dark border-bottom navbar-dark mb-3">
+	<div class="container">
+		<a href="/" class="navbar-brand title">Abe's<small>&nbsp(dev version)</small>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-    <div class="collapse navbar-collapse text-dark" id="mobile-nav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a href="{{ path('_blogs') }}" class="nav-link"><i class="fas fa-home"></i> Home</a>
-            </li>
-            {% if app.user %}
-                {% if  app.user.username == 'admin' %}
-            <li class="nav-item">
-                <a href="{{ path('_admin') }}" class="nav-link"><i class="fas fa-users"></i> Users</a>
-            </li>
-                {% endif %}
-            {% endif %}
-            {% if app.user %}
-            <li class="nav-item">
-                <a href="{{ path('_blog_new') }}" class="nav-link"><i class="fas fa-plus"></i> New</a>
-            </li>
-            <li class="nav-item">
-                <div class="dropdown">
-                    <button class="btn btn-warning text-white dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                    </button>
-
-                    <ul class="dropdown-menu bg-secondary text-white" style="width:max-content; height:max-content; padding:10px;" aria-labelledby="dropdownMenu1">
-                        <li><h4 class="text-center">{{ app.user.getUsername() }}</h4></li>
-                        <li><p class="text-center">{{ app.user.getEmail() }}</p></li>
-                        <li><small class="text-center">Joined {{ app.user.joinedDate|date('d-M-Y') }}</small></li>
-                        <li><small class="text-center">Last login {{ app.user.lastloginDate|date('d-M-Y') }}</small></li>
-                        <br/>
-                        <li>
-                            <a class="btn btn-sm btn-info text-white pull-left" style="margin:5px" 
-                            href="{{ path('_user_profile') }}"><i class="fa fa-user-circle" aria-hidden="true"></i> My Profile</a>
-                            <a class="btn btn-sm btn-warning text-white pull-right" style="margin:5px" 
-                            href="{{ path('app_signout') }}"><i class="fa fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
-                        </>
-                    </ul>
-                </div>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a href="{{ path('app_signup', {'username': 'newusername'}) }}" class="nav-link"><i class="fas fa-user-plus"></i> Sign up</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('app_signin') }}" class="nav-link"><i class="fas fa-user"></i> Login</a>
-            </li>
-            {% endif %}
-        </ul>
-    </div>
-    </div>
+		<div class="collapse navbar-collapse text-dark" id="mobile-nav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a href="http://abraham-kurnanto.com/index.html" class="nav-link">
+						<i class="fas fa-home"></i>
+						Home</a>
+				</li>
+				{% if app.user %}
+					{% if  app.user.username == 'admin' %}
+						<li class="nav-item">
+							<a href="{{ path('_admin') }}" class="nav-link">
+								<i class="fas fa-users"></i>
+								Users</a>
+						</li>
+					{% endif %}
+				{% endif %}
+                <li class="nav-item">
+                    <a href="https://github.com/rumbledot" class="nav-link">
+                        <i class="fab fa-github"></i>
+                        GitHub</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://github.com/rumbledot" class="nav-link">
+                        <i class="fas fa-book-dead"></i>
+                        etc.</a>
+                </li>
+			</ul>
+		</div>
+	</div>
 </nav>

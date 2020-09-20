@@ -1,15 +1,20 @@
 .navbar {
-    width:  96%;
-    margin: 2%;
+    margin-left: 5%;
+    border-bottom: dotted solid dashed;
+    width: 90%;
     z-index: 1000;
-}
-
-body {
-    padding-top: 90px;
 }
 
 .navbar-bg-gradient {
     background: linear-gradient(to bottom right, #33cccc 0%, #6699ff 50%, #33cccc 100%);
+}
+
+.navbar-brand.title {
+    color:black;
+}
+
+.nav-item a {
+    color:black !important;
 }
 
 .card-columns {
