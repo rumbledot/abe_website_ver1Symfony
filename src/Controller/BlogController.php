@@ -98,14 +98,12 @@ class BlogController extends AbstractController
     public function viewAction(UserService $us, $id)
     {
         $blog       = $this->getDoctrine()->getRepository(Blog::class)->find($id);
-        $state      = $blog->getStateStr();
+        $tags       = $blog->getTags();
         $comments   = $blog->getComments();
-        $user       = $us->getUser($blog->getOwner());
         
         return array(
-            'user'      => $user,
             'blog'      => $blog,
-            'state'     => $state,
+            'tags'      => $tags,
             'comments'  => $comments,
         );
     }

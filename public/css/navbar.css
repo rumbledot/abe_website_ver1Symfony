@@ -1,6 +1,10 @@
+body {
+    margin-top:90px;
+}
+
 .navbar {
     margin-left: 5%;
-    border-bottom: dotted solid dashed;
+    border-style: none none double none;
     width: 90%;
     z-index: 1000;
 }

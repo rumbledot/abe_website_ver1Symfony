@@ -18,9 +18,8 @@
 		<div class="card mt-5">
 			<form id="form-signin" class="form" method="post">
 
-				<div class="card-header bg-warning">
-					<h1 class="h3 mb-3 font-weight-normal">Howdy!</h1>
-				</div>
+				<h1 class="card-title bg-dark text-light rounded" style="width:50%; margin-left:10px; margin-top:-20px; padding:5px;">
+				Howdy!</h1>
 
 				{% if error %}
 					<div class="alert alert-danger">
@@ -40,8 +39,8 @@
 						</div>
 					</div>
 				{% else %}
-				<div class="card-body bg-dark text-white text-center">
-					<div class="card-text text-warning">
+				<div class="card-body text-center">
+					<div class="card-text">
 						<i class="fas fa-user-circle fa-7x"></i>
 					</div>
 					<br/>
@@ -66,13 +65,12 @@
 					</div>
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 				</div>
-				<div class="card-footer bg-dark text-white text-center">
+				<div class="card-footer text-center">
 					<div class="card-text mb-5">
-						<button id="signinButton" type="submit" class="btn btn-md btn-warning btn-block" disabled>
+						<button id="signinButton" type="submit" class="btn btn-md btn-dark btn-block" disabled>
 							Sign in
 						</button>
 					</div>
-				{# <a href="{{ path('app_signup') }}" class="text-white"><small>Sign up as new user.</small></a> #}
 				</div>
 				{% endif %}
 			</form>

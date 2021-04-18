@@ -82,6 +82,11 @@ class Blog
     private $lists;
 
     /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $tags = [];
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -277,6 +282,19 @@ class Blog
                 $list->setBlog(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTags(): ?array
+    {
+        if ($this->tags.length == 0) array_push($this->tags, 'general');
+        return $this->tags;
+    }
+
+    public function setTags(?array $tags): self
+    {
+        $this->tags = $tags;
 
         return $this;
     }

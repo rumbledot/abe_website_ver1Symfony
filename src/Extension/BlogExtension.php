@@ -42,15 +42,15 @@ class BlogExtension extends AbstractExtension
         $card  = '';
         
         $card .= '<div class="card rounded shadow" style="margin:20px; max-height:70vh; height:40vh;">';
-        // card-header
 
-        $card .= '<h3 class="card-title bg-dark text-light rounded" style="margin:10px; margin-top:-10px; padding:5px;">';
+        // card-floating header
+        $card .= '<h5 class="card-title bg-dark text-light rounded" style="width:50%; margin-left:10px; margin-top:-20px; padding:5px;">';
         $card .= $blog['title'];
-        $card .= '</h3>';
+        $card .= '</h5>';
 
         // card-body        
         $card .= '<div class="card-body overflow-auto">';
-        $card .= '<div class="card-text">' . $blog['body'] . '</div>';
+        $card .= '<div class="card-text">' . substr($blog['body'], 0, 150) . ' ...</div>';
         $card .= '</div>';
 
         // card-footer

@@ -8,7 +8,7 @@ logout:
 
 homepage:
     path: /
-    controller: App\Controller\AdminController::blogsAction
+    controller: App\Controller\BlogController::indexAction
 
 admin:
     path: /admin
