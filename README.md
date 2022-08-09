@@ -1,4 +1,4 @@
-# website
+# Personal Website 1.0
 Website is a blogging site created using Symfony frameworks.
 The purpose was to document/organise notes of things that I learned.
 The project is still in development and will be updated frequently.
